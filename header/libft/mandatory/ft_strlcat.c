@@ -6,11 +6,11 @@
 /*   By: nacho <nacho@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 15:07:21 by ipanos-o          #+#    #+#             */
-/*   Updated: 2023/12/05 13:00:01 by nacho            ###   ########.fr       */
+/*   Updated: 2023/12/06 11:47:59 by nacho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/libft.h"
 
 //concatena dos strings en dst (añada lo que haya en src al final de dst)
 

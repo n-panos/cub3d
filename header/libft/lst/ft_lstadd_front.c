@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_front_bonus.c                            :+:      :+:    :+:   */
+/*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ipanos-o <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nacho <nacho@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 12:47:50 by ipanos-o          #+#    #+#             */
-/*   Updated: 2019/11/27 12:48:45 by ipanos-o         ###   ########.fr       */
+/*   Updated: 2023/12/06 11:57:48 by nacho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/libft.h"
 
 void	ft_lstadd_front(t_list **alst, t_list *new)
 {
-	if (alst != '\0' && new != '\0')
+	if (alst != NULL && new != NULL)
 	{
 		new->next = *alst;
 		*alst = new;

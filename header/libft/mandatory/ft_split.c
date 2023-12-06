@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ipanos-o <ipanos-o@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nacho <nacho@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/15 11:42:25 by ipanos-o          #+#    #+#             */
-/*   Updated: 2023/04/19 10:43:59 by ipanos-o         ###   ########.fr       */
+/*   Updated: 2023/12/06 11:57:08 by nacho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/libft.h"
 
 //cuenta cuantos cortes hay
 
@@ -62,7 +62,7 @@ char	**ft_split(const char *s, char c)
 	int		i;
 
 	i = 0;
-	if (s == '\0')
+	if (s == NULL)
 		return (NULL);
 	arr = (char **)malloc(sizeof(char *) * (ft_count_words(s, c) + 1));
 	if (!arr)

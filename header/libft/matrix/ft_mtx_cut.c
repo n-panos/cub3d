@@ -6,11 +6,11 @@
 /*   By: nacho <nacho@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 13:08:27 by nacho             #+#    #+#             */
-/*   Updated: 2023/12/05 12:42:22 by nacho            ###   ########.fr       */
+/*   Updated: 2023/12/06 11:47:59 by nacho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/libft.h"
 
 // hace una copia de la matriz y le corta la linea indicada
 

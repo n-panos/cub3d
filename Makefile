@@ -14,11 +14,11 @@ B_OBJS_PATH	= $(addprefix $(BUILD)/, $(B_OBJS))
 
 #	LIBRARIES
 
-LIBRARIES	= $(LIBFT)
-LIBFT		= -Lheader/libft -l ft
+LIBRARIES	= 
+LIBFT		= -L header/libft
 #MLX			= -Lheader/mlx -lmlx -framework OpenGL -framework AppKit
 
-INCLUDES	= $(HEADER) $(I_LIBFT)
+INCLUDES	= $(HEADER) #$(I_LIBFT)
 HEADER		= -Iheader
 #I_LIBFT		= -Iheader/libft
 
@@ -26,6 +26,11 @@ HEADER		= -Iheader
 
 CFLAGS		= -Wall -Werror -Wextra $(INCLUDES)
 LDFLAGS		= $(LIBRARIES)
+
+#	MAIN
+
+SRC			+= main.c
+B_SRC		+= main.c
 
 ##	PARSER
 
@@ -53,8 +58,11 @@ all:	$(NAME)
 $(NAME):	$(OBJS)
 	$(MKDIR)
 	$(MOVE)
-	$(CC) $(CFLAGS) $(B_OBJS_PATH) -o $@
+	$(CC) $(LDFLAGS) $(B_OBJS_PATH) $(LIBFT) -o $@
 	@echo "$(GREEN)<---> Cub3D Compiled! ⌐(ಠ۾ಠ)¬ <--->$(RESET)"
+
+$(LIBFT):
+	@make -C header/libft
 
 debug:	CFLAGS	+= $(DEBUG) $(SANITIZE)
 debug:	re
@@ -64,6 +72,7 @@ clean:
 
 fclean:	clean
 	$(RM) $(NAME)
+	@make fclean -C header/libft
 	@echo "$(GREEN)<==========> ALL REMOVED <==========>$(RESET)"
 
 re:	fclean all

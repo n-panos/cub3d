@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoli.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ipanos-o <ipanos-o@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nacho <nacho@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 11:32:17 by ipanos-o          #+#    #+#             */
-/*   Updated: 2023/01/11 11:56:09 by ipanos-o         ###   ########.fr       */
+/*   Updated: 2023/12/06 11:47:59 by nacho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/libft.h"
 
 long int	ft_atoli(const char *str)
 {

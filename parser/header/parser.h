@@ -1,6 +1,8 @@
 #ifndef PARSER_H
 # define PARSER_H
 
-# define <stdio.h>
+# include <stdio.h>
+
+int ft_parse(char **argv);
 
 #endif

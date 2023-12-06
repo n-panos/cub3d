@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ipanos-o <ipanos-o@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nacho <nacho@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 15:46:37 by ipanos-o          #+#    #+#             */
-/*   Updated: 2020/12/23 14:10:12 by ipanos-o         ###   ########.fr       */
+/*   Updated: 2023/12/06 11:56:33 by nacho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/libft.h"
 
 //mueve la cadena a otra parte de la memoria
 
@@ -23,7 +23,7 @@ void	*ft_memmove(void *dst, const void *src, size_t len)
 
 	d = dst;
 	s = src;
-	if ((int)src == '\0' && (int)dst == '\0')
+	if (src == NULL && dst == NULL)
 		return (NULL);
 	if (d < s)
 	{
