@@ -13,13 +13,13 @@ B_OBJS_PATH	= $(addprefix $(BUILD)/, $(B_OBJS))
 
 #	LIBRARIES
 
-LIBRARIES	= 
+LIBRARIES	= $(LIBFT) #MLX
 #MLX			= -Lheader/mlx -lmlx -framework OpenGL -framework AppKit
 
 INCLUDES	= $(HEADER)
 HEADER		= -Iheader
 
-LIBFT		= -L header/libft -l ft
+LIBFT		= header/libft/libft.a
 
 #	FLAGS
 
@@ -57,7 +57,7 @@ all:	$(NAME)
 $(NAME):	$(OBJS)
 	@make -C header/libft
 	$(MOVE)
-	$(CC) $(LDFLAGS) $(B_OBJS_PATH) $(LIBFT) -o $@
+	$(CC) $(LDFLAGS) $(B_OBJS_PATH) -o $@
 	@echo "$(GREEN)<---> Cub3D Compiled! ⌐(ಠ۾ಠ)¬ <--->$(RESET)"
 
 debug:	CFLAGS	+= $(DEBUG) $(SANITIZE)
