@@ -6,12 +6,12 @@
 /*   By: nacho <nacho@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 18:01:04 by ipanos-o          #+#    #+#             */
-/*   Updated: 2023/12/06 11:47:59 by nacho            ###   ########.fr       */
+/*   Updated: 2023/12/07 11:39:48 by nacho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <string.h>
-#include "../includes/libft.h"
+#include "libft.h"
 
 //busca en la cadena de memoria si existe el caracter c con un 
 //tamaño limite (ojo con bus error)

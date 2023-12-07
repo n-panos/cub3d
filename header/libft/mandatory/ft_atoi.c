@@ -6,11 +6,11 @@
 /*   By: nacho <nacho@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 13:17:01 by ipanos-o          #+#    #+#             */
-/*   Updated: 2023/12/06 11:47:59 by nacho            ###   ########.fr       */
+/*   Updated: 2023/12/07 11:37:28 by nacho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "libft.h"
 
 // convertir a int un numero pasado en string
 

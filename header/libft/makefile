@@ -1,15 +1,16 @@
 NAME		= libft.a
 LIBRARY		= ar -rcs
-
 CC			= gcc
 RM			= rm -rf
 
 HEADER  	= includes/libft.h includes/get_next_line.h
 
+INCLUDES	= -Iincludes
+CFLAGS		= -Wall -Werror -Wextra $(INCLUDES)
+
 #	Objects move to build folder
 
 BUILD		= objs
-MKDIR		= mkdir $(BUILD)
 MOVE		= mv $(OBJS) $(BUILD)
 B_OBJS_PATH	= $(addprefix $(BUILD)/, $(B_OBJS))
 
@@ -53,23 +54,19 @@ RESET   := \033[0m
 OBJS		= ${SRC:.c=.o}
 B_OBJS		= $(B_SRC:.c=.o)
 
-CFLAGS	= -Wall -Werror -Wextra
-
 all:		${NAME}
 
 .c.o:		%.o : %.c
 		@${CC} ${CFLAGS} -c $< -o $(<:.c=.o) 
 
 ${NAME}:	${OBJS}
-		@$(MKDIR)
 		@$(MOVE)
-		@${LIBRARY} ${NAME} ${B_OBJS_PATH} $(HEADER)
-		@ranlib ${NAME}
+		@${LIBRARY} ${NAME} ${B_OBJS_PATH}
+		ranlib ${NAME}
 		@echo "$(GREEN)<---> Libft Compiled! <--->$(RESET)"
 
 clean:
-		@${RM} ${OBJS}
-		@${RM} ${BUILD}
+		@${RM} ${B_OBJS_PATH}
 
 fclean:		clean
 		@${RM} ${NAME}

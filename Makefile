@@ -8,19 +8,18 @@ SANITIZE	= -fsanitize=address
 #	Objects move to build folder
 
 BUILD		= objs
-MKDIR		= mkdir $(BUILD)
 MOVE		= mv $(OBJS) $(BUILD)
 B_OBJS_PATH	= $(addprefix $(BUILD)/, $(B_OBJS))
 
 #	LIBRARIES
 
 LIBRARIES	= 
-LIBFT		= -L header/libft
 #MLX			= -Lheader/mlx -lmlx -framework OpenGL -framework AppKit
 
-INCLUDES	= $(HEADER) #$(I_LIBFT)
+INCLUDES	= $(HEADER)
 HEADER		= -Iheader
-#I_LIBFT		= -Iheader/libft
+
+LIBFT		= -L header/libft -l ft
 
 #	FLAGS
 
@@ -53,22 +52,19 @@ B_OBJS		= $(B_SRC:.c=.o)
 all:	$(NAME)
 
 .c.o:	%.o : %.c
-	@$(CC) $(CFLAGS) -c $< -o $(<:.c=.o)
+	$(CC) $(CFLAGS) -c $< -o $(<:.c=.o)
 
 $(NAME):	$(OBJS)
-	$(MKDIR)
+	@make -C header/libft
 	$(MOVE)
 	$(CC) $(LDFLAGS) $(B_OBJS_PATH) $(LIBFT) -o $@
 	@echo "$(GREEN)<---> Cub3D Compiled! ⌐(ಠ۾ಠ)¬ <--->$(RESET)"
-
-$(LIBFT):
-	@make -C header/libft
 
 debug:	CFLAGS	+= $(DEBUG) $(SANITIZE)
 debug:	re
 
 clean:
-	$(RM) $(BUILD)
+	$(RM) $(B_OBJS_PATH)
 
 fclean:	clean
 	$(RM) $(NAME)

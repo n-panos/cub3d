@@ -6,11 +6,11 @@
 /*   By: nacho <nacho@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 10:18:30 by ipanos-o          #+#    #+#             */
-/*   Updated: 2023/12/06 11:47:59 by nacho            ###   ########.fr       */
+/*   Updated: 2023/12/07 11:39:48 by nacho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "libft.h"
 
 //comprueba si dos cadenas son iguales con tamaño limite
 

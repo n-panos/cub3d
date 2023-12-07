@@ -6,11 +6,11 @@
 /*   By: nacho <nacho@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 15:46:37 by ipanos-o          #+#    #+#             */
-/*   Updated: 2023/12/06 11:56:33 by nacho            ###   ########.fr       */
+/*   Updated: 2023/12/07 11:39:48 by nacho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "libft.h"
 
 //mueve la cadena a otra parte de la memoria
 
