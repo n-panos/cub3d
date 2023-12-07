@@ -43,11 +43,14 @@ SRC			+= $(GNL_PATH)
 
 # COLOUR DEFINITION #
 
+YELLOW	:= \033[33m
 RED     := \033[0;31m
 BLUE    := \033[0;34m
 GREEN   := \033[1;32m
 WHITE   := \033[0;37m
 RESET   := \033[0m
+UP		= "\033[A"
+CUT		= "\033[K"
 
 #	OBJS
 
@@ -57,12 +60,13 @@ B_OBJS		= $(B_SRC:.c=.o)
 all:		${NAME}
 
 .c.o:		%.o : %.c
-		@${CC} ${CFLAGS} -c $< -o $(<:.c=.o) 
+		${CC} ${CFLAGS} -c $< -o $(<:.c=.o)
+		@printf $(UP)$(CUT)
 
 ${NAME}:	${OBJS}
 		@$(MOVE)
 		@${LIBRARY} ${NAME} ${B_OBJS_PATH}
-		ranlib ${NAME}
+		@ranlib ${NAME}
 		@echo "$(GREEN)<---> Libft Compiled! <--->$(RESET)"
 
 clean:
@@ -70,7 +74,7 @@ clean:
 
 fclean:		clean
 		@${RM} ${NAME}
-		@echo "$(GREEN)<---> Libft Removed! <--->$(RESET)"
+		@echo "$(YELLOW)<---> Libft Removed! <--->$(RESET)"
 
 re:			fclean all
 

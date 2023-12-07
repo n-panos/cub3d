@@ -40,11 +40,14 @@ SRC			+= $(PARSER_PATH)
 
 # COLOUR DEFINITION #
 
+YELLOW	:= \033[33m
 RED     := \033[0;31m
 BLUE    := \033[0;34m
 GREEN   := \033[1;32m
 WHITE   := \033[0;37m
 RESET   := \033[0m
+UP		= "\033[A"
+CUT		= "\033[K"
 
 OBJS		= $(SRC:.c=.o)
 B_OBJS		= $(B_SRC:.c=.o)
@@ -53,12 +56,13 @@ all:	$(NAME)
 
 .c.o:	%.o : %.c
 	$(CC) $(CFLAGS) -c $< -o $(<:.c=.o)
+	@printf $(UP)$(CUT)
 
 $(NAME):	$(OBJS)
 	@make -C header/libft
-	$(MOVE)
-	$(CC) $(LDFLAGS) $(B_OBJS_PATH) -o $@
-	@echo "$(GREEN)<---> Cub3D Compiled! ⌐(ಠ۾ಠ)¬ <--->$(RESET)"
+	@$(MOVE)
+	@$(CC) $(LDFLAGS) $(B_OBJS_PATH) -o $@
+	@echo "$(GREEN)<==========> Cub3D Compiled! ⌐(ಠ۾ಠ)¬ <==========>$(RESET)"
 
 debug:	CFLAGS	+= $(DEBUG) $(SANITIZE)
 debug:	re
@@ -69,7 +73,7 @@ clean:
 fclean:	clean
 	$(RM) $(NAME)
 	@make fclean -C header/libft
-	@echo "$(GREEN)<==========> ALL REMOVED <==========>$(RESET)"
+	@echo "$(YELLOW)<==========> ALL REMOVED <==========>$(RESET)"
 
 re:	fclean all
 
