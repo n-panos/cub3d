@@ -12,7 +12,6 @@ char	**ft_file(char *argv)
 	while (1)
 	{
 		aux = get_next_line(fd);
-		aux = ft_space(aux);
 		if (aux == NULL)
 			break;
 		map = ft_strfjoin(map, aux);
@@ -26,6 +25,7 @@ char	**ft_file(char *argv)
 
 char	*ft_space(char *str)
 {
+	char	*aux
 	while (*str == ' ' || *str == '\t')
 		str++;
 	return (str);
