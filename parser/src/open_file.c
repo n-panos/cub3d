@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   open_file.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ipanos-o <ipanos-o@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/11 11:06:57 by ipanos-o          #+#    #+#             */
+/*   Updated: 2023/12/11 11:06:58 by ipanos-o         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 char	**ft_file(char *argv)
@@ -13,7 +25,7 @@ char	**ft_file(char *argv)
 	{
 		aux = get_next_line(fd);
 		if (aux == NULL)
-			break;
+			break ;
 		map = ft_strfjoin(map, aux);
 		free(aux);
 	}
@@ -25,7 +37,8 @@ char	**ft_file(char *argv)
 
 char	*ft_space(char *str)
 {
-	char	*aux
+	char	*aux;
+
 	while (*str == ' ' || *str == '\t')
 		str++;
 	return (str);

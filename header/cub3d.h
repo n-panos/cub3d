@@ -19,25 +19,6 @@
 # include "libft/includes/libft.h"
 # include "mlx/mlx.h"
 
-typedef struct s_pos
-{
-	int		x;
-	int		y;
-}			t_pos;
-
-typedef struct  s_map
-{
-    char    **map;
-    char	*north_path;
-	char	*south_path;
-	char	*west_path;
-	char	*east_path;
-    int     floor_rgb[3];
-    int     ceiling_rgb[3];
-	char	spawn_orient;
-	t_pos	*spawn;
-}           t_map;
-
 typedef struct s_img
 {
 	int		width;

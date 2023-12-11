@@ -26,6 +26,8 @@ LIBFT		= header/libft/libft.a
 CFLAGS		= -Wall -Werror -Wextra $(INCLUDES)
 LDFLAGS		= $(LIBRARIES)
 
+########		INCLUDE PARTS		########
+
 #	MAIN
 
 SRC			+= main.c
@@ -33,7 +35,7 @@ B_SRC		+= main.c
 
 ##	PARSER
 
-PARSER		= parser.c open_file.c
+PARSER		= parser.c open_file.c init.c
 B_SRC		+= $(PARSER)
 PARSER_PATH	= $(addprefix parser/src/, $(PARSER))
 SRC			+= $(PARSER_PATH)
