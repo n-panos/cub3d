@@ -13,12 +13,12 @@ B_OBJS_PATH	= $(addprefix $(BUILD)/, $(B_OBJS))
 
 #	LIBRARIES
 
-LIBRARIES	= $(LIBFT) #MLX
-#MLX			= -Lheader/mlx -lmlx -framework OpenGL -framework AppKit
-
-INCLUDES	= $(HEADER)
+INCLUDES	= $(HEADER) $(MLX_H)
 HEADER		= -Iheader
+MLX_H		= -Iheader/mlx
 
+LIBRARIES	= $(LIBFT) $(MLX)
+MLX			= -Lheader/mlx -lmlx -framework OpenGL -framework AppKit
 LIBFT		= header/libft/libft.a
 
 #	FLAGS
@@ -33,7 +33,7 @@ B_SRC		+= main.c
 
 ##	PARSER
 
-PARSER		= parser.c
+PARSER		= parser.c open_file.c
 B_SRC		+= $(PARSER)
 PARSER_PATH	= $(addprefix parser/src/, $(PARSER))
 SRC			+= $(PARSER_PATH)
@@ -60,19 +60,22 @@ all:	$(NAME)
 
 $(NAME):	$(OBJS)
 	@make -C header/libft
+	@make -C header/mlx
 	@$(MOVE)
 	@$(CC) $(LDFLAGS) $(B_OBJS_PATH) -o $@
 	@echo "$(GREEN)<==========> Cub3D Compiled! ⌐(ಠ۾ಠ)¬ <==========>$(RESET)"
 
 debug:	CFLAGS	+= $(DEBUG) $(SANITIZE)
+debug:	LDFLAGS	+= $(SANITIZE)
 debug:	re
 
 clean:
-	$(RM) $(B_OBJS_PATH)
+	@$(RM) $(B_OBJS_PATH)
 
 fclean:	clean
-	$(RM) $(NAME)
+	@$(RM) $(NAME)
 	@make fclean -C header/libft
+	@make fclean -C header/mlx
 	@echo "$(YELLOW)<==========> ALL REMOVED <==========>$(RESET)"
 
 re:	fclean all
