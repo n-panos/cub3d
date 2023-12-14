@@ -35,6 +35,7 @@ typedef struct s_game
 }			t_game;
 
 void	ft_exit_err(char *str);
+void	ft_free_map(t_map *map);
 
 //	testing fts
 

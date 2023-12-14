@@ -3,30 +3,94 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ipanos-o <ipanos-o@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nacho <nacho@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 11:20:27 by ipanos-o          #+#    #+#             */
-/*   Updated: 2023/12/11 11:26:38 by ipanos-o         ###   ########.fr       */
+/*   Updated: 2023/12/14 14:19:09 by nacho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-t_map	*ft_init_map(void)
+t_map	*ft_init_map(char **parsed)
 {
 	t_map	*map;
+	int		i;
+	char	*str;
 
 	map = malloc(sizeof(t_map *));
+	i = 0;
 	map->map = NULL;
 	map->north_path = NULL;
 	map->south_path = NULL;
 	map->west_path = NULL;
 	map->east_path = NULL;
-	map->floor_rgb[0] = -1;
-	map->floor_rgb[1] = -1;
-	map->floor_rgb[2] = -1;
-	map->ceiling_rgb[] = -1;
-	map->spawn_orient = '0';
+	ft_rgb(&(map->floor), "-1", "-1", "-1");
+	ft_rgb(&(map->ceiling), "-1", "-1", "-1");
+	while (parsed[i])
+	{
+		str = ft_parse_line(map, parsed[i]);
+		if (str)
+		{
+			ft_free_map(map);
+			ft_exit_err(str);
+		}
+		++i;
+	}
+	return (map);
+}
+
+char	*ft_parse_line(t_map *map, char *str)
+{
+	char	*line;
+	char	*ret;
+
+	line = str;
+	line = ft_space(line);
+	ret = NULL;
+	if (line[0] == '\0')
+		return (ret);
+	if (line[0] == 'N' && line[1] == 'O' && line[2] == ' ')
+		ret = ft_distribute_line(line, map->north_path);
+	else if (line[0] == 'S' && line[1] == 'O' && line[2] == ' ')
+		ret = ft_distribute_line(line, map->south_path);
+	else if (line[0] == 'W' && line[1] == 'E' && line[2] == ' ')
+		ret = ft_distribute_line(line, map->west_path);
+	else if (line[0] == 'E' && line[1] == 'A' && line[2] == ' ')
+		ret = ft_distribute_line(line, map->east_path);
+	else if (line[0] == 'F' && line[1] == ' ')
+		ret = ft_distribute_rgb(line, &map->floor);
+	return (ret);
+}
+
+char	*ft_distribute_rgb(char *line, t_rgb *rgb)
+{
+}
+
+char	*ft_distribute_line(char *line, char *path)
+{
+	char	*aux;
+	int		i;
+
+	if (path != NULL)
+		return ("Invalid map, duplicated path");
+	line += 3;
+	aux = line;
+	i = 0;
+	while (aux[i])
+	{
+		if (aux[i] == ' ')
+		{
+			++i;
+			break ;
+		}
+		++i;
+	}
+	aux = ft_space(aux);
+	if (aux != '\0')
+		return ("Invalid texture path");
+	path = ft_strdup(line);
+	return (NULL);
 }
 
 t_pos	*ft_pos_init(int x, int y)
@@ -36,20 +100,4 @@ t_pos	*ft_pos_init(int x, int y)
 	new_pos = malloc(sizeof(t_pos));
 	ft_give_coords(new_pos, x, y);
 	return (new_pos);
-}
-
-int	ft_give_coords(t_pos *vector, int x, int y)
-{
-	if (!vector || x < 0 || y < 0)
-		return (1);
-	vector->x = x;
-	vector->y = y;
-	return (0);
-}
-
-int	*ft_rgb(char *r, char *g, char *b)
-{
-	int	ret[3];
-
-	
 }

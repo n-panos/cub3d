@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ipanos-o <ipanos-o@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nacho <nacho@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 11:07:04 by ipanos-o          #+#    #+#             */
-/*   Updated: 2023/12/11 11:07:04 by ipanos-o         ###   ########.fr       */
+/*   Updated: 2023/12/14 11:37:27 by nacho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,23 @@ void	ft_exit_err(char *str)
 {
 	perror(str);
 	exit(EXIT_FAILURE);
+}
+
+void	ft_free_map(t_map *map)
+{
+	if (map->map)
+		ft_mtx_free(map->map);
+	map->map = NULL;
+	map->north_path = NULL;
+	map->south_path = NULL;
+	map->west_path = NULL;
+	map->east_path = NULL;
+	ft_rgb(&(map->floor), "-1", "-1", "-1");
+	ft_rgb(&(map->ceiling), "-1", "-1", "-1");
+	map->spawn_orient = '0';
+	ft_give_coords(map->spawn, 0, 0);
+	free(map->spawn);
+	free(map);
 }
 
 void	ft_mtx_print(char **mtx)

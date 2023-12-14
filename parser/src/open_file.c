@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_file.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ipanos-o <ipanos-o@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nacho <nacho@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 11:06:57 by ipanos-o          #+#    #+#             */
-/*   Updated: 2023/12/11 11:06:58 by ipanos-o         ###   ########.fr       */
+/*   Updated: 2023/12/14 12:51:20 by nacho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,6 @@ char	**ft_file(char *argv)
 	ret = ft_split(map, '\n');
 	free(map);
 	return (ret);
-}
-
-char	*ft_space(char *str)
-{
-	char	*aux;
-
-	while (*str == ' ' || *str == '\t')
-		str++;
-	return (str);
 }
 
 int	ft_open_file(char *argv)

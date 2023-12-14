@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ipanos-o <ipanos-o@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nacho <nacho@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 11:07:58 by ipanos-o          #+#    #+#             */
-/*   Updated: 2023/12/11 11:18:15 by ipanos-o         ###   ########.fr       */
+/*   Updated: 2023/12/14 12:51:59 by nacho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,14 @@ typedef struct s_pos
 	int		y;
 }			t_pos;
 
+typedef struct s_rgb
+{
+	int		r;
+	int		g;
+	int		b;
+}			t_rgb;
+
+
 typedef struct s_map
 {
 	char	**map;
@@ -26,14 +34,23 @@ typedef struct s_map
 	char	*south_path;
 	char	*west_path;
 	char	*east_path;
-	int		floor_rgb[3];
-	int		ceiling_rgb[3];
+	t_rgb	floor;
+	t_rgb	ceiling;
 	char	spawn_orient;
 	t_pos	*spawn;
 }			t_map;
 
 t_map	*ft_parse(char *argv);
-t_map	*ft_init_map(void);
+
+//	INIT
+
+t_map	*ft_init_map(char **parsed);
+t_pos	*ft_pos_init(int x, int y);
+
+int		ft_give_coords(t_pos *vector, int x, int y);
+void	ft_rgb(t_rgb *rgb, char *r, char *g, char *b);
+int		ft_aredigit_atoi(char *str);
+char	*ft_space(char *str);
 
 //  Open File
 
