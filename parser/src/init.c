@@ -6,7 +6,7 @@
 /*   By: nacho <nacho@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 11:20:27 by ipanos-o          #+#    #+#             */
-/*   Updated: 2023/12/14 14:19:09 by nacho            ###   ########.fr       */
+/*   Updated: 2023/12/15 10:06:40 by nacho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,19 @@ char	*ft_parse_line(t_map *map, char *str)
 
 char	*ft_distribute_rgb(char *line, t_rgb *rgb)
 {
+	char	**mtx;
+	int		i;
+
+	line += 2;
+	mtx = ft_split(line, ',');
+	i = 0;
+	while (mtx[i])
+		++i;
+	if (i != 3)
+		ft_rgb(rgb, "-1", "-1", "-1");
+	else
+		ft_rgb(rgb, mtx[0], mtx[1], mtx[2]);
+	ft_mtx_free(mtx);
 }
 
 char	*ft_distribute_line(char *line, char *path)
