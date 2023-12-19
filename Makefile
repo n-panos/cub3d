@@ -35,7 +35,7 @@ B_SRC		+= main.c
 
 ##	PARSER
 
-PARSER		= init_utils.c init.c open_file.c parser.c
+PARSER		= distribute.c init_utils.c init.c open_file.c parser.c
 B_SRC		+= $(PARSER)
 PARSER_PATH	= $(addprefix parser/src/, $(PARSER))
 SRC			+= $(PARSER_PATH)

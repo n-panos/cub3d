@@ -6,7 +6,7 @@
 /*   By: nacho <nacho@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 11:07:58 by ipanos-o          #+#    #+#             */
-/*   Updated: 2023/12/14 12:51:59 by nacho            ###   ########.fr       */
+/*   Updated: 2023/12/19 11:27:47 by nacho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ t_map	*ft_parse(char *argv);
 
 //	INIT
 
-t_map	*ft_init_map(char **parsed);
+t_map	*ft_init_map(void);
 t_pos	*ft_pos_init(int x, int y);
 
 int		ft_give_coords(t_pos *vector, int x, int y);

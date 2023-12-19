@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ipanos-o <ipanos-o@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nacho <nacho@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 11:39:42 by ipanos-o          #+#    #+#             */
-/*   Updated: 2023/12/15 11:39:42 by ipanos-o         ###   ########.fr       */
+/*   Updated: 2023/12/18 14:05:34 by nacho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,22 @@ int	ft_aredigit_atoi(char *str)
 
 char	*ft_space(char *str)
 {
-	while (*str == ' ' || *str == '\t')
-		str++;
+	char	*aux;
+	char	*conc;
+
+	aux = str;
 	while (aux)
 	{
 		if (*aux == '\t')
-			*aux = ' ';
+		{
+			conc = aux + 1;
+			*aux = '\0';
+			str = ft_strfjoin(str, "    ");
+			str = ft_strfjoin(str, conc);
+		}
 		++aux;
 	}
+	while (*str == ' ')
+		str++;
 	return (str);
 }
