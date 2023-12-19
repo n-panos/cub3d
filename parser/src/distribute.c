@@ -52,7 +52,8 @@ char	*ft_distribute_line(char *line, char *path)
 
 char	*ft_distribute_map(t_map *map, char **mtx, int i)
 {
-	int	aux;
+	int		aux;
+	char	*str;
 
 	aux = ft_empty_lines(mtx, i);
 	map->map = malloc(sizeof(char *) *(ft_mtx_line_cnt(mtx) - i - aux + 1));
@@ -66,6 +67,12 @@ char	*ft_distribute_map(t_map *map, char **mtx, int i)
 		}
 		++i;
 	}
+	map->map[aux] = NULL;
+	str = mtx[i];
+	str = ft_space(str);
+	if (str[0] == '\0')
+		return (NULL);
+	return ("Mapa invalido, linea vacia en medio del mapa");
 }
 
 int	ft_empty_lines(char **mtx, int i)

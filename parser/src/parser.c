@@ -6,7 +6,7 @@
 /*   By: nacho <nacho@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 11:06:49 by ipanos-o          #+#    #+#             */
-/*   Updated: 2023/12/19 11:17:08 by nacho            ###   ########.fr       */
+/*   Updated: 2023/12/19 20:09:01 by nacho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,32 +20,40 @@ t_map	*ft_parse(char *argv)
 	mtx = ft_file(argv);
 	map = ft_init_map();
 	ft_solve_map(map, mtx);
-	//ft_check_valid_texture(map);
-	//ft_check_valid_map(map->map);
+	ft_valid_texture(map);
+	ft_valid_chars(map);
+	ft_valid_map(map->map);
 	ft_mtx_print(mtx);
 	free(mtx);
 }
 
-int	ft_solve_map(t_map *map, char **mtx)
+void	ft_solve_map(t_map *map, char **mtx)
 {
 	char	*str;
 	int		i;
 
 	i = 0;
 	str = NULL;
-	while (mtx[i] && map->map_len == 0)
+	while (mtx[i])
 	{
 		str = ft_parse_line(map, mtx[i]);
 		if (ft_strncmp(str, "exit", 4))
 			break ;
 		if (str)
-		{
-			ft_free_map(map);
-			ft_exit_err(str);
-		}
+			ft_map_error(map, str);
 		++i;
 	}
-	ft_distribute_map(map, mtx, i);
+	while (mtx[i])
+	{
+		str = mtx[i];
+		str = ft_space(str);
+		if (str[0] != '\0')
+			break ;
+		++i;
+	}
+	str = ft_distribute_map(map, mtx, i);
+	if (str)
+		ft_map_error(map, str);
 }
 	
 
