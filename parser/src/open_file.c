@@ -6,7 +6,7 @@
 /*   By: nacho <nacho@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 11:06:57 by ipanos-o          #+#    #+#             */
-/*   Updated: 2023/12/14 12:51:20 by nacho            ###   ########.fr       */
+/*   Updated: 2024/01/02 10:32:38 by nacho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,10 @@ char	**ft_file(char *argv)
 		aux = get_next_line(fd);
 		if (aux == NULL)
 			break ;
-		map = ft_strfjoin(map, aux);
+		if (ft_strncmp(aux, "\n", 1) == 0 && ft_strlen(aux) == 1)
+			map = ft_strfjoin(map, " \n");
+		else
+			map = ft_strfjoin(map, aux);
 		free(aux);
 	}
 	close(fd);

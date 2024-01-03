@@ -1,9 +1,10 @@
 #include "cub3d.h"
 
-char	*ft_distribute_rgb(char *line, t_rgb *rgb)
+t_rgb	*ft_distribute_rgb(char *line, t_map *map)
 {
 	char	**mtx;
 	int		i;
+	t_rgb	*rgb;
 
 	line += 1;
 	line = ft_space(line);
@@ -13,81 +14,63 @@ char	*ft_distribute_rgb(char *line, t_rgb *rgb)
 		++i;
 	if (i != 3)
 	{
-		ft_rgb(rgb, "-1", "-1", "-1");
 		ft_mtx_free(mtx);
-		return ("Invalid RGB, wrong data");
+		map->error_ret = ft_strdup("Invalid RGB, wrong data");
+		return (NULL);
 	}
-	ft_rgb(rgb, mtx[0], mtx[1], mtx[2]);
+	rgb = ft_rgb(mtx[0], mtx[1], mtx[2]);
 	ft_mtx_free(mtx);
 	if (rgb->r == -1 || rgb->g == -1 || rgb->b == -1)
-		return ("Invalid RGB, numbers not valid");
-	return (NULL);
+		map->error_ret = ft_strdup("Invalid RGB, numbers not valid");
+	return (rgb);
 }
 
-char	*ft_distribute_line(char *line, char *path)
+char	*ft_distribute_line(char *line, t_map *map)
 {
-	char	*aux;
+	char	**aux;
 	int		i;
+	char	*ret;
 
-	if (path != NULL)
-		return ("Invalid map, duplicated path");
-	line += 3;
-	aux = line;
-	i = 0;
-	while (aux[i])
-	{
-		if (aux[i] == ' ')
-		{
-			++i;
-			break ;
-		}
-		++i;
-	}
-	aux = ft_space(aux);
-	if (aux != '\0')
-		return ("No texture path");
-	path = ft_strdup(line);
-	return (NULL);
+	aux = ft_split(line, ' ');
+	i = ft_mtx_line_cnt(aux);
+	ret = NULL;
+	if (i == 1)
+		map->error_ret = ft_strdup("Invalid parse, no path found");
+	else if (i > 2)
+		map->error_ret = ft_strdup("Invalid parse, invalid path");
+	else
+		ret = ft_strdup(aux[1]);
+	ft_mtx_free(aux);
+	return (ret);
 }
 
-char	*ft_distribute_map(t_map *map, char **mtx, int i)
+void	ft_distribute_map(t_map *map, char **mtx, int i)
 {
 	int		aux;
-	char	*str;
 
-	aux = ft_empty_lines(mtx, i);
-	map->map = malloc(sizeof(char *) *(ft_mtx_line_cnt(mtx) - i - aux + 1));
+	free(map->error_ret);
+	map->error_ret = NULL;
+	aux = ft_mtx_line_cnt(mtx) - i;
+	map->map = malloc(sizeof(char *) * (aux + 1));
 	aux = 0;
 	while (mtx[i])
 	{
-		if (mtx[i][0] != '\0')
-		{
-			map->map[aux] = ft_strdup(mtx[i]);
-			++aux;
-		}
+		if (!map->error_ret && ft_empty_line(mtx[i]) == 1)
+			map->error_ret = ft_strdup("Invalid map, empty line");
+		map->map[aux] = ft_strdup(mtx[i]);
+		++aux;
 		++i;
 	}
 	map->map[aux] = NULL;
-	str = mtx[i];
-	str = ft_space(str);
-	if (str[0] == '\0')
-		return (NULL);
-	return ("Mapa invalido, linea vacia en medio del mapa");
 }
 
-int	ft_empty_lines(char **mtx, int i)
+int	ft_empty_line(char *line)
 {
-	int		j;
-	char	*str;
+	char	*empty;
 
-	j = 0;
-	while (mtx[i])
-	{
-		str = mtx[i];
-		str = ft_space(str);
-		if (str[0] == '\0')
-			++j;
-		++i;
-	}
-	return (j);
+	empty = line;
+	empty = ft_space(empty);
+	if (empty[0] == '\0')
+		return (1);
+	return (0);
 }

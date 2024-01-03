@@ -6,41 +6,38 @@
 /*   By: nacho <nacho@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 11:06:49 by ipanos-o          #+#    #+#             */
-/*   Updated: 2023/12/19 20:09:01 by nacho            ###   ########.fr       */
+/*   Updated: 2024/01/03 10:39:54 by nacho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-t_map	*ft_parse(char *argv)
+int	ft_parse(t_map *map, char *argv)
 {
 	char	**mtx;
-	t_map	*map;
 
 	mtx = ft_file(argv);
-	map = ft_init_map();
 	ft_solve_map(map, mtx);
+	free(mtx);
 	ft_valid_texture(map);
 	ft_valid_chars(map);
-	ft_valid_map(map->map);
-	ft_mtx_print(mtx);
-	free(mtx);
+	ft_valid_map(map);
+	return (0);
 }
 
 void	ft_solve_map(t_map *map, char **mtx)
 {
-	char	*str;
 	int		i;
+	char	*str;
 
 	i = 0;
-	str = NULL;
 	while (mtx[i])
 	{
-		str = ft_parse_line(map, mtx[i]);
-		if (ft_strncmp(str, "exit", 4))
+		ft_parse_line(map, mtx[i]);
+		if (map->error_ret && ft_strncmp(map->error_ret, "exit", 4) == 0)
 			break ;
-		if (str)
-			ft_map_error(map, str);
+		if (map->error_ret)
+			ft_map_error(map, map->error_ret);
 		++i;
 	}
 	while (mtx[i])
@@ -51,44 +48,78 @@ void	ft_solve_map(t_map *map, char **mtx)
 			break ;
 		++i;
 	}
-	str = ft_distribute_map(map, mtx, i);
-	if (str)
-		ft_map_error(map, str);
+	ft_distribute_map(map, mtx, i);
+	if (map->error_ret)
+		ft_map_error(map, map->error_ret);
 }
 	
 
-char	*ft_parse_line(t_map *map, char *str)
+void	ft_parse_line(t_map *map, char *str)
 {
 	char	*line;
-	char	*ret;
 
 	line = str;
 	line = ft_space(line);
-	ret = NULL;
-	if (line[0] == '\0')
-		return (ret);
-	ret = ft_parse_textures(map, line);
-	return (ret);
+	if (line[0] != '\0' && line[1] && line[2])
+	{
+		if (ft_parse_textures(map, line) == 0)
+			ft_parse_rgb(map, line);
+	}
 }
 
-char	*ft_parse_textures(t_map *map, char *line)
+int	ft_parse_textures(t_map *map, char *line)
 {
-	char	*ret;
-
-	ret = NULL;
 	if (line[0] == 'N' && line[1] == 'O' && line[2] == ' ')
-		ret = ft_distribute_line(line, map->north_path);
-	else if (line[0] == 'S' && line[1] == 'O' && line[2] == ' ')
-		ret = ft_distribute_line(line, map->south_path);
-	else if (line[0] == 'W' && line[1] == 'E' && line[2] == ' ')
-		ret = ft_distribute_line(line, map->west_path);
-	else if (line[0] == 'E' && line[1] == 'A' && line[2] == ' ')
-		ret = ft_distribute_line(line, map->east_path);
+	{
+		if (map->north_path)
+			map->error_ret = ft_strdup("Invalid parse, duplicated path");
+		else
+			map->north_path = ft_distribute_line(line, map);
+		return (1);
+	}
+	if (line[0] == 'S' && line[1] == 'O' && line[2] == ' ')
+	{
+		if (map->south_path)
+			map->error_ret = ft_strdup("Invalid parse, duplicated path");
+		else
+			map->south_path = ft_distribute_line(line, map);
+		return (1);
+	}
+	if (line[0] == 'W' && line[1] == 'E' && line[2] == ' ')
+	{
+		if (map->west_path)
+			map->error_ret = ft_strdup("Invalid parse, duplicated path");
+		else
+			map->west_path = ft_distribute_line(line, map);
+		return (1);
+	}
+	return (0);
+}
+
+int	ft_parse_rgb(t_map *map, char *line)
+{
+	if (line[0] == 'E' && line[1] == 'A' && line[2] == ' ')
+	{
+		if (map->east_path)
+			map->error_ret = ft_strdup("Invalid parse, duplicated path");
+		else
+			map->east_path = ft_distribute_line(line, map);
+	}
 	else if (line[0] == 'F' && line[1] == ' ')
-		ret = ft_distribute_rgb(line, &map->floor);
+	{
+		if (map->floor)
+			map->error_ret = ft_strdup("Invalid RGB, duplicated data");
+		else
+			map->floor = ft_distribute_rgb(line, map);
+	}
 	else if (line[0] == 'C' && line[1] == ' ')
-		ret = ft_distribute_rgb(line, &map->ceiling);
+	{
+		if (map->ceiling)
+			map->error_ret = ft_strdup("Invalid RGB, duplicated data");
+		else
+			map->ceiling = ft_distribute_rgb(line, map);
+	}
 	else
-		return ("exit");
-	return (ret);
+		map->error_ret = ft_strdup("exit");
+	return (0);
 }

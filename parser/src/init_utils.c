@@ -6,7 +6,7 @@
 /*   By: nacho <nacho@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 11:39:42 by ipanos-o          #+#    #+#             */
-/*   Updated: 2023/12/18 14:05:34 by nacho            ###   ########.fr       */
+/*   Updated: 2023/12/29 14:09:40 by nacho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,11 @@
 
 int	ft_give_coords(t_pos *vector, int x, int y)
 {
-	if (!vector || x < 0 || y < 0)
+	if (!vector)
 		return (1);
 	vector->x = x;
 	vector->y = y;
 	return (0);
-}
-
-void	ft_rgb(t_rgb *rgb, char *r, char *g, char *b)
-{
-	rgb->r = ft_aredigit_atoi(r);
-	rgb->g = ft_aredigit_atoi(g);
-	rgb->b = ft_aredigit_atoi(b);
 }
 
 int	ft_aredigit_atoi(char *str)
@@ -47,8 +40,10 @@ char	*ft_space(char *str)
 	char	*aux;
 	char	*conc;
 
+	if (!str)
+		return (str);
 	aux = str;
-	while (aux)
+	while (*aux)
 	{
 		if (*aux == '\t')
 		{

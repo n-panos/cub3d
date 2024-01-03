@@ -35,10 +35,17 @@ B_SRC		+= main.c
 
 ##	PARSER
 
-PARSER		= distribute.c init_utils.c init.c open_file.c parser.c valid_map.c
+PARSER		= distribute.c init_utils.c init.c map_paint.c open_file.c parser.c valid_map.c
 B_SRC		+= $(PARSER)
 PARSER_PATH	= $(addprefix parser/src/, $(PARSER))
 SRC			+= $(PARSER_PATH)
+
+##	GAME
+
+GAME		= game.c
+B_SRC		+= $(GAME)
+GAME_PATH	= $(addprefix game/src/, $(GAME))
+SRC			+= $(GAME_PATH)
 
 # COLOUR DEFINITION #
 

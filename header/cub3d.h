@@ -16,6 +16,7 @@
 # include <stdlib.h>
 
 # include "../parser/header/parser.h"
+# include "../game/header/game.h"
 # include "libft/includes/libft.h"
 # include "mlx/mlx.h"
 
