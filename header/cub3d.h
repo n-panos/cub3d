@@ -6,7 +6,7 @@
 /*   By: ipanos-o <ipanos-o@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:28:20 by ipanos-o          #+#    #+#             */
-/*   Updated: 2024/01/09 10:28:21 by ipanos-o         ###   ########.fr       */
+/*   Updated: 2024/01/09 13:12:03 by ipanos-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@
 # define MAP_W 1360
 # define MAP_H 780
 
-# define DIST 10
+# define DIST 20
+# define SPEED 1
 
 void	ft_exit_err(char *str);
 void	ft_free_map(t_map *map);
