@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   image.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ipanos-o <ipanos-o@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/09 10:24:21 by ipanos-o          #+#    #+#             */
+/*   Updated: 2024/01/09 10:34:30 by ipanos-o         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 void	ft_draw_map(t_game *cubd)
@@ -15,9 +27,7 @@ void	ft_draw_player(t_game *cubd)
 {
 	t_pos	*player;
 
-	//player = ft_pos_init(((WIDTH - MAP_W) / 2) + MAP_W, \
-	((HEIGHT - MAP_H) / 2) + MAP_H);
-	player = ft_pos_init(cubd->player->x * MULTI, cubd->player->y * MULTI);
+	player = ft_pos_init(cubd->player->x * DIST, cubd->player->y * DIST);
 	mlx_pixel_put(cubd->mlx, cubd->window, player->x, player->y, RED);
 }
 

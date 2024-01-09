@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   game_init.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ipanos-o <ipanos-o@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/09 10:24:15 by ipanos-o          #+#    #+#             */
+/*   Updated: 2024/01/09 10:41:39 by ipanos-o         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 t_game	*ft_init_game(t_map *map)
@@ -14,11 +26,11 @@ t_game	*ft_init_game(t_map *map)
 	if (map->spawn_orient == 'N')
 		game->ray = ft_pos_init(0, -1);
 	else if (map->spawn_orient == 'S')
-		game->ray =ft_pos_init(0, 1);
+		game->ray = ft_pos_init(0, 1);
 	else if (map->spawn_orient == 'E')
-		game->ray =ft_pos_init(1, 0);
+		game->ray = ft_pos_init(1, 0);
 	else if (map->spawn_orient == 'W')
-		game->ray =ft_pos_init(-1, 0);
+		game->ray = ft_pos_init(-1, 0);
 	return (game);
 }
 

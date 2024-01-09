@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nacho <nacho@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ipanos-o <ipanos-o@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 11:06:49 by ipanos-o          #+#    #+#             */
-/*   Updated: 2024/01/03 10:39:54 by nacho            ###   ########.fr       */
+/*   Updated: 2024/01/09 10:29:30 by ipanos-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ void	ft_solve_map(t_map *map, char **mtx)
 	if (map->error_ret)
 		ft_map_error(map, map->error_ret);
 }
-	
 
 void	ft_parse_line(t_map *map, char *str)
 {

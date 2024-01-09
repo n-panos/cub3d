@@ -1,16 +1,28 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   valid_map.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ipanos-o <ipanos-o@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/09 10:29:37 by ipanos-o          #+#    #+#             */
+/*   Updated: 2024/01/09 10:30:44 by ipanos-o         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
-void    ft_valid_texture(t_map *map)
+void	ft_valid_texture(t_map *map)
 {
-    if (map->north_path == NULL)
+	if (map->north_path == NULL)
 		ft_map_error(map, "Map error, north path not set");
-    if (map->south_path == NULL)
-        ft_map_error(map, "Map error, south path not set");
-    if (map->east_path == NULL)
-        ft_map_error(map, "Map error, east path not set");
-    if (map->west_path == NULL)
-        ft_map_error(map, "Map error, west path not set");
-    if (map->ceiling->r == -1 || map->ceiling->g == -1 || map->ceiling->b == -1)
+	if (map->south_path == NULL)
+		ft_map_error(map, "Map error, south path not set");
+	if (map->east_path == NULL)
+		ft_map_error(map, "Map error, east path not set");
+	if (map->west_path == NULL)
+		ft_map_error(map, "Map error, west path not set");
+	if (map->ceiling->r == -1 || map->ceiling->g == -1 || map->ceiling->b == -1)
 		ft_map_error(map, "Map error, ceiling rgb not set");
 	if (map->floor->r == -1 || map->floor->g == -1 || map->floor->b == -1)
 		ft_map_error(map, "Map error, floor rgb not set");
@@ -45,7 +57,7 @@ void	ft_valid_chars(t_map *map)
 	}
 }
 
-int    ft_valid_map(t_map *map)
+int	ft_valid_map(t_map *map)
 {
 	int		ret;
 	int		i;
