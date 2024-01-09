@@ -20,20 +20,31 @@
 # include "libft/includes/libft.h"
 # include "mlx/mlx.h"
 
-typedef struct s_img
-{
-	int		width;
-	int		height;
-	t_map	*map;
-}			t_img;
+# define ESC 53
+# define W 13
+# define A 0
+# define S 1
+# define D 2
+# define UP 126
+# define DOWN 125
+# define LEFT 123
+# define RIGHT 124
 
-typedef struct s_game
-{
-	t_img	*img;
-	void	*mlx;
-	void	*window;
-	t_pos	*player;
-}			t_game;
+# define WHITE 0x00FFFFFF
+# define BLACK 0x00000000
+# define RED 0x00FF0000
+# define GREEN 0x0000FF00
+# define BLUE 0x000000FF
+# define MAGENTA 0x00FF00FF
+# define YELLOW 0x00FFFF00
+# define CYAN 0x0000FFFF
+
+# define WIDTH 1920
+# define HEIGHT 1080
+# define MAP_W 1360
+# define MAP_H 780
+
+# define DIST 10
 
 void	ft_exit_err(char *str);
 void	ft_free_map(t_map *map);

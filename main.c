@@ -6,7 +6,7 @@
 /*   By: nacho <nacho@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 11:07:04 by ipanos-o          #+#    #+#             */
-/*   Updated: 2024/01/03 11:18:09 by nacho            ###   ########.fr       */
+/*   Updated: 2024/01/04 11:53:18 by nacho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ int	main(int argc, char **argv)
 	map = ft_init_map();
 	ft_parse(map, argv[1]);
 	ft_game(map);
-	ft_free_map(map);
 	return (0);
 }
 
@@ -39,8 +38,7 @@ void	ft_exit_err(char *str)
 
 void	ft_free_map(t_map *map)
 {
-	if (map->map)
-		ft_mtx_free(map->map);
+	ft_mtx_free(map->map);
 	map->map = NULL;
 	free(map->north_path);
 	map->north_path = NULL;
@@ -50,9 +48,9 @@ void	ft_free_map(t_map *map)
 	map->west_path = NULL;
 	free(map->east_path);
 	map->east_path = NULL;
-	if (map->spawn)
-		free(map->spawn);
-	map->spawn_orient = '0';
+	free(map->spawn);
+	free(map->ceiling);
+	free(map->floor);
 	free(map);
 }
 
