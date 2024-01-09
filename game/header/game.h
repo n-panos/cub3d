@@ -6,7 +6,7 @@
 /*   By: ipanos-o <ipanos-o@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:28:30 by ipanos-o          #+#    #+#             */
-/*   Updated: 2024/01/09 10:32:11 by ipanos-o         ###   ########.fr       */
+/*   Updated: 2024/01/09 11:14:05 by ipanos-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,11 @@ int		ft_end_game(t_game *game);
 
 void	ft_draw_map(t_game *cubd);
 void	ft_minimap(t_game *cubd);
+void	ft_draw_player(t_game *cubd, int color);
 void	ft_cuadriculas(t_game *cubd, int x_init, int y_init);
+
+//	UTILS
+
+void	ft_draw_rect(t_game *cubd, t_pos start, t_pos end, int color);
 
 #endif

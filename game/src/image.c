@@ -6,7 +6,7 @@
 /*   By: ipanos-o <ipanos-o@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:24:21 by ipanos-o          #+#    #+#             */
-/*   Updated: 2024/01/09 10:34:30 by ipanos-o         ###   ########.fr       */
+/*   Updated: 2024/01/09 11:13:56 by ipanos-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,23 @@ void	ft_draw_map(t_game *cubd)
 
 void	ft_minimap(t_game *cubd)
 {
-	ft_draw_player(cubd);
-	ft_cuadriculas(cubd, 0, 0);
+	ft_draw_player(cubd, GREEN);
+	//ft_cuadriculas(cubd, 0, 0);
 }
 
-void	ft_draw_player(t_game *cubd)
+void	ft_draw_player(t_game *cubd, int color)
 {
 	t_pos	*player;
+	t_pos	*start;
+	t_pos	*end;
 
 	player = ft_pos_init(cubd->player->x * DIST, cubd->player->y * DIST);
-	mlx_pixel_put(cubd->mlx, cubd->window, player->x, player->y, RED);
+	start = ft_pos_init(player->x - 1, player->y - 1);
+	end = ft_pos_init(player->x + 1, player->y + 1);
+	ft_draw_rect(cubd, *start, *end, color);
+	free(start);
+	free(end);
+	free(player);
 }
 
 void	ft_cuadriculas(t_game *cubd, int x_init, int y_init)

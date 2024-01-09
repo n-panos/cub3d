@@ -6,7 +6,7 @@
 /*   By: ipanos-o <ipanos-o@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:24:03 by ipanos-o          #+#    #+#             */
-/*   Updated: 2024/01/09 10:24:08 by ipanos-o         ###   ########.fr       */
+/*   Updated: 2024/01/09 11:32:21 by ipanos-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,13 @@ int	ft_keys(int key_code, t_game *game)
 {
 	if (key_code == ESC)
 		ft_end_game(game);
-	/*else if (key_code == W || key_code == UP)
-		ft_move();
+	else if (key_code == W || key_code == UP)
+		ft_move_front(game, UP);
 	else if (key_code == S || key_code == DOWN)
-		ft_move();
+		ft_move_back(game, DOWN);
 	else if (key_code == A || key_code == LEFT)
-		ft_move();
+		ft_move_left(game);
 	else if (key_code == D || key_code == RIGHT)
-		ft_move();*/
+		ft_move_right(game);
 	return (0);
 }
