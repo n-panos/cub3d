@@ -6,7 +6,7 @@
 /*   By: ipanos-o <ipanos-o@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:24:21 by ipanos-o          #+#    #+#             */
-/*   Updated: 2024/01/09 13:15:21 by ipanos-o         ###   ########.fr       */
+/*   Updated: 2024/01/09 13:30:10 by ipanos-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,14 @@ void	ft_minimap(t_game *cubd)
 
 void	ft_draw_map(t_game *cubd)
 {
+	int	x;
+	int	y;
+
+	x = 0;
+	while (cubd->map->map[x])
+	{
+		++x;
+	}
 }
 
 void	ft_draw_player(t_game *cubd, int color)
