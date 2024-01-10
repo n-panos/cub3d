@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ipanos-o <ipanos-o@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nacho <nacho@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:25:21 by ipanos-o          #+#    #+#             */
-/*   Updated: 2024/01/09 13:25:24 by ipanos-o         ###   ########.fr       */
+/*   Updated: 2024/01/10 13:41:54 by nacho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,18 @@ void	ft_draw_rect(t_game *cubd, t_pos start, t_pos end, int color)
 	}
 }
 
-void	ft_draw_cuadricula(t_game *cubd, t_pos start)
+void	ft_draw_dir(t_game *cubd, int color)
 {
-	int	x;
-	int	y;
+	int		x;
+	int		y;
+	int		i;
 
-	x = start.x;
-	while (x <= start.x + DIST)
+	i = 0;
+	while (i <= 20)
 	{
-		mlx_pixel_put(cubd->mlx, cubd->window, x, start.y, GREEN);
-		mlx_pixel_put(cubd->mlx, cubd->window, x, start.y + DIST, GREEN);
-		++x;
+		x = cubd->player->x + (i * cubd->ray->x);
+		y = cubd->player->y + (i * cubd->ray->y);
+		mlx_pixel_put(cubd->mlx, cubd->window, x, y, color);
+		++i;
 	}
 }

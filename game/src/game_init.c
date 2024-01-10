@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_init.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ipanos-o <ipanos-o@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nacho <nacho@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:24:15 by ipanos-o          #+#    #+#             */
-/*   Updated: 2024/01/09 13:09:49 by ipanos-o         ###   ########.fr       */
+/*   Updated: 2024/01/10 13:40:47 by nacho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 t_game	*ft_init_game(t_map *map)
 {
 	t_game	*game;
+	int		half;
 
 	game = malloc(sizeof(t_game));
 	if (!game)
@@ -22,15 +23,18 @@ t_game	*ft_init_game(t_map *map)
 	game->mlx = mlx_init();
 	game->window = mlx_new_window(game->mlx, WIDTH, HEIGHT, "Cub3D");
 	game->map = map;
-	game->player = ft_pos_init(map->spawn->x, map->spawn->y);
+	half = floor(DIST / 2);
+	game->player = ft_pos_init(map->spawn->x * DIST + half, \
+	map->spawn->y * DIST + half);
 	if (map->spawn_orient == 'N')
-		game->ray = ft_pos_init(0, -1);
+		game->p_angle = PI * 3 / 2;
 	else if (map->spawn_orient == 'S')
-		game->ray = ft_pos_init(0, 1);
+		game->p_angle = PI / 2;
 	else if (map->spawn_orient == 'E')
-		game->ray = ft_pos_init(1, 0);
+		game->p_angle = 0;
 	else if (map->spawn_orient == 'W')
-		game->ray = ft_pos_init(-1, 0);
+		game->p_angle = PI;
+	game->ray = ft_pos_init(cos(game->p_angle) * 2, sin(game->p_angle) * 2);
 	return (game);
 }
 

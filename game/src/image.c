@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   image.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ipanos-o <ipanos-o@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nacho <nacho@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:24:21 by ipanos-o          #+#    #+#             */
-/*   Updated: 2024/01/09 13:30:10 by ipanos-o         ###   ########.fr       */
+/*   Updated: 2024/01/10 12:22:00 by nacho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,36 +14,47 @@
 
 void	ft_minimap(t_game *cubd)
 {
+	ft_draw_map(cubd);
 	ft_draw_player(cubd, GREEN);
-	ft_draw_map();
-	//ft_cuadriculas(cubd, 0, 0);
+	ft_draw_dir(cubd, YELLOW);
+	ft_cuadriculas(cubd, 0, 0);
 }
 
 void	ft_draw_map(t_game *cubd)
 {
-	int	x;
-	int	y;
+	int		x;
+	int		y;
+	t_pos	start;
+	t_pos	end;
 
-	x = 0;
-	while (cubd->map->map[x])
+	y = 0;
+	while (cubd->map->map[y])
 	{
-		++x;
+		x = 0;
+		while (cubd->map->map[y][x])
+		{
+			ft_give_coords(&start, x * DIST, y * DIST);
+			ft_give_coords(&end, start.x + DIST, start.y + DIST);
+			if (cubd->map->map[y][x] == '0' || cubd->map->map[y][x] == 'p')
+				ft_draw_rect(cubd, start, end, GREY);
+			if (cubd->map->map[y][x] == '1')
+				ft_draw_rect(cubd, start, end, MAGENTA);
+			++x;
+		}
+		++y;
 	}
 }
 
 void	ft_draw_player(t_game *cubd, int color)
 {
-	t_pos	*player;
-	t_pos	*start;
-	t_pos	*end;
+	t_pos	player;
+	t_pos	start;
+	t_pos	end;
 
-	player = ft_pos_init(cubd->player->x * DIST, cubd->player->y * DIST);
-	start = ft_pos_init(player->x - 1, player->y - 1);
-	end = ft_pos_init(player->x + 1, player->y + 1);
-	ft_draw_rect(cubd, *start, *end, color);
-	free(start);
-	free(end);
-	free(player);
+	ft_give_coords(&player, cubd->player->x, cubd->player->y);
+	ft_give_coords(&start, player.x - 3, player.y - 3);
+	ft_give_coords(&end, player.x + 3, player.y + 3);
+	ft_draw_rect(cubd, start, end, color);
 }
 
 void	ft_cuadriculas(t_game *cubd, int x_init, int y_init)
@@ -57,7 +68,7 @@ void	ft_cuadriculas(t_game *cubd, int x_init, int y_init)
 		y = y_init;
 		while (y < HEIGHT)
 		{
-			mlx_pixel_put(cubd->mlx, cubd->window, x, y, RED);
+			mlx_pixel_put(cubd->mlx, cubd->window, x, y, WHITE);
 			y = y + 1;
 		}
 		x = x + DIST;
@@ -68,7 +79,7 @@ void	ft_cuadriculas(t_game *cubd, int x_init, int y_init)
 		x = x_init;
 		while (x < WIDTH)
 		{
-			mlx_pixel_put(cubd->mlx, cubd->window, x, y, RED);
+			mlx_pixel_put(cubd->mlx, cubd->window, x, y, WHITE);
 			x = x + 1;
 		}
 		y = y + DIST;

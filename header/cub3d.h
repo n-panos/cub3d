@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ipanos-o <ipanos-o@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nacho <nacho@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:28:20 by ipanos-o          #+#    #+#             */
-/*   Updated: 2024/01/09 13:12:03 by ipanos-o         ###   ########.fr       */
+/*   Updated: 2024/01/10 12:17:24 by nacho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,17 @@
 # define MAGENTA 0x00FF00FF
 # define YELLOW 0x00FFFF00
 # define CYAN 0x0000FFFF
+# define GREY 0x00808080
 
 # define WIDTH 1920
 # define HEIGHT 1080
 # define MAP_W 1360
 # define MAP_H 780
 
-# define DIST 20
-# define SPEED 1
+# define DIST 32
+# define SPEED 2
+# define TURN 0.1
+# define PI 3.1415926535
 
 void	ft_exit_err(char *str);
 void	ft_free_map(t_map *map);
