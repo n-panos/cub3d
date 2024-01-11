@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   image.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nacho <nacho@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ipanos-o <ipanos-o@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:24:21 by ipanos-o          #+#    #+#             */
-/*   Updated: 2024/01/10 12:22:00 by nacho            ###   ########.fr       */
+/*   Updated: 2024/01/11 12:22:04 by ipanos-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,9 @@ void	ft_minimap(t_game *cubd)
 {
 	ft_draw_map(cubd);
 	ft_draw_player(cubd, GREEN);
-	ft_draw_dir(cubd, YELLOW);
+	ft_draw_dir(cubd, YELLOW, 20);
 	ft_cuadriculas(cubd, 0, 0);
+	mlx_put_image_to_window(cubd->mlx, cubd->window, cubd->render->ptr, 0, 0);
 }
 
 void	ft_draw_map(t_game *cubd)
@@ -68,7 +69,7 @@ void	ft_cuadriculas(t_game *cubd, int x_init, int y_init)
 		y = y_init;
 		while (y < HEIGHT)
 		{
-			mlx_pixel_put(cubd->mlx, cubd->window, x, y, WHITE);
+			ft_put_pixel(cubd->render, x, y, WHITE);
 			y = y + 1;
 		}
 		x = x + DIST;
@@ -79,7 +80,7 @@ void	ft_cuadriculas(t_game *cubd, int x_init, int y_init)
 		x = x_init;
 		while (x < WIDTH)
 		{
-			mlx_pixel_put(cubd->mlx, cubd->window, x, y, WHITE);
+			ft_put_pixel(cubd->render, x, y, WHITE);
 			x = x + 1;
 		}
 		y = y + DIST;

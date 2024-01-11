@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nacho <nacho@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ipanos-o <ipanos-o@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:25:21 by ipanos-o          #+#    #+#             */
-/*   Updated: 2024/01/10 13:41:54 by nacho            ###   ########.fr       */
+/*   Updated: 2024/01/11 12:20:48 by ipanos-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,25 +23,25 @@ void	ft_draw_rect(t_game *cubd, t_pos start, t_pos end, int color)
 		y = start.y;
 		while (y <= end.y)
 		{
-			mlx_pixel_put(cubd->mlx, cubd->window, x, y, color);
+			ft_put_pixel(cubd->render, x, y, color);
 			++y;
 		}
 		++x;
 	}
 }
 
-void	ft_draw_dir(t_game *cubd, int color)
+void	ft_draw_dir(t_game *cubd, int color, int len)
 {
 	int		x;
 	int		y;
 	int		i;
 
 	i = 0;
-	while (i <= 20)
+	while (i <= len)
 	{
-		x = cubd->player->x + (i * cubd->ray->x);
-		y = cubd->player->y + (i * cubd->ray->y);
-		mlx_pixel_put(cubd->mlx, cubd->window, x, y, color);
+		x = cubd->player->x + (i * cubd->ray->x / 10);
+		y = cubd->player->y + (i * cubd->ray->y / 10);
+		ft_put_pixel(cubd->render, x, y, color);
 		++i;
 	}
 }
