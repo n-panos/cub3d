@@ -6,7 +6,7 @@
 /*   By: nacho <nacho@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 11:07:04 by ipanos-o          #+#    #+#             */
-/*   Updated: 2024/01/04 11:53:18 by nacho            ###   ########.fr       */
+/*   Updated: 2024/01/16 10:45:50 by nacho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,24 +34,6 @@ void	ft_exit_err(char *str)
 {
 	perror(str);
 	exit(EXIT_FAILURE);
-}
-
-void	ft_free_map(t_map *map)
-{
-	ft_mtx_free(map->map);
-	map->map = NULL;
-	free(map->north_path);
-	map->north_path = NULL;
-	free(map->south_path);
-	map->south_path = NULL;
-	free(map->west_path);
-	map->west_path = NULL;
-	free(map->east_path);
-	map->east_path = NULL;
-	free(map->spawn);
-	free(map->ceiling);
-	free(map->floor);
-	free(map);
 }
 
 void	ft_mtx_print(char **mtx)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ipanos-o <ipanos-o@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nacho <nacho@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:28:20 by ipanos-o          #+#    #+#             */
-/*   Updated: 2024/01/11 12:18:10 by ipanos-o         ###   ########.fr       */
+/*   Updated: 2024/01/16 10:17:24 by nacho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@
 # define PI 3.1415926535
 
 void	ft_exit_err(char *str);
-void	ft_free_map(t_map *map);
 
 //	testing fts
 

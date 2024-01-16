@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ipanos-o <ipanos-o@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nacho <nacho@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:24:03 by ipanos-o          #+#    #+#             */
-/*   Updated: 2024/01/11 12:51:07 by ipanos-o         ###   ########.fr       */
+/*   Updated: 2024/01/16 15:24:38 by nacho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int	ft_game(t_map *map)
 
 	cubd = ft_init_game(map);
 	ft_minimap(cubd);
-
 	mlx_hook(cubd->window, 2, 1L << 0, ft_keys, cubd);
 	mlx_hook(cubd->window, 17, 1L << 2, ft_end_game, cubd);
 	mlx_loop(cubd->mlx);
@@ -45,22 +44,10 @@ void	ft_render(t_game *cubd)
 {
 	int	len;
 
+	len = ft_get_ray_len(cubd);
 	ft_draw_map(cubd);
 	ft_cuadriculas(cubd, 0, 0);
 	ft_draw_player(cubd, GREEN);
-	ft_draw_dir(cubd, YELLOW, 20);
+	ft_draw_dir(cubd, YELLOW, len);
 	mlx_put_image_to_window(cubd->mlx, cubd->window, cubd->render->ptr, 0, 0);
-}
-
-int	ft_get_ray_len(t_game *cubd)
-{
-	t_pos	ray;
-	int		ray_angle;
-
-	ray_angle = cubd->p_angle;
-	if (ray_angle > PI)
-	{
-		(cubd->player->y + cubd->ray->y) * atan(ray_angle) + cubd->player->x;
-		ft_give_coords(&ray, )
-	}
 }

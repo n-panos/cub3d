@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ipanos-o <ipanos-o@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nacho <nacho@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:25:21 by ipanos-o          #+#    #+#             */
-/*   Updated: 2024/01/11 12:20:48 by ipanos-o         ###   ########.fr       */
+/*   Updated: 2024/01/16 19:58:55 by nacho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,20 @@ void	ft_draw_rect(t_game *cubd, t_pos start, t_pos end, int color)
 	}
 }
 
-void	ft_draw_dir(t_game *cubd, int color, int len)
+void	ft_draw_dir(t_game *cubd, int color)
+{
+	int		x;
+	double	camerax;
+
+	x = 0;
+	while (x < WIDTH)
+	{
+		
+		++x;
+	}
+}
+
+/*void	ft_draw_dir(t_game *cubd, int color, int len)
 {
 	int		x;
 	int		y;
@@ -39,9 +52,17 @@ void	ft_draw_dir(t_game *cubd, int color, int len)
 	i = 0;
 	while (i <= len)
 	{
-		x = cubd->player->x + (i * cubd->ray->x / 10);
-		y = cubd->player->y + (i * cubd->ray->y / 10);
-		ft_put_pixel(cubd->render, x, y, color);
+		x = cubd->player->x + (i * cubd->ray->dir->x / 10);
+		y = cubd->player->y + (i * cubd->ray->dir->y / 10);
+		if (x > 0 && x < WIDTH && y > 0 && y < HEIGHT)
+			ft_put_pixel(cubd->render, x, y, color);
+		else
+			break ;
 		++i;
 	}
+}*/
+
+void ft_put_pixel(t_image *image, int x, int y, int color)
+{
+	((int *)image->addr)[(x) + (y * image->size_line / 4)] = color;
 }
