@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nacho <nacho@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ipanos-o <ipanos-o@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:28:30 by ipanos-o          #+#    #+#             */
-/*   Updated: 2024/01/16 17:11:35 by nacho            ###   ########.fr       */
+/*   Updated: 2024/01/17 10:16:13 by ipanos-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,20 @@ typedef struct s_image
 
 typedef struct s_ray
 {
-	t_pos	*dir;
-	t_pos	*plane;
-	float	p_angle;
+	double	posX;
+	double	posY;
+	double	dirX;
+	double	dirY;
+	double	planeX;
+	double	planeY;
+	double	time;
+	double	oldtime;
 	t_pos	*map;
+	double	sideDistX;
+	double	sideDistY;
+	double	deltaDistX;
+	double	deltaDistY;
+	double	perpWallDist;
 }			t_ray;
 
 typedef struct s_game
@@ -40,8 +50,6 @@ typedef struct s_game
 	t_image	*render;
 	t_pos	*player;
 	t_ray	*ray;
-	double	time;
-	double	old_time;
 }			t_game;
 
 int		ft_game(t_map *map);
@@ -59,8 +67,8 @@ t_image	*ft_generate_image(t_game *cubd, int width, int height);
 
 int		ft_end_game(t_game *game);
 void	ft_free_map(t_map *map);
-void    ft_free_ray(t_ray *ray);
-void    ft_free_image(t_image *image, void *mlx);
+void	ft_free_ray(t_ray *ray);
+void	ft_free_image(t_image *image, void *mlx);
 
 //		IMAGE - DRAWING
 
@@ -73,7 +81,7 @@ void	ft_cuadriculas(t_game *cubd, int x_init, int y_init);
 
 void	ft_draw_rect(t_game *cubd, t_pos start, t_pos end, int color);
 void	ft_draw_dir(t_game *cubd, int color);
-void 	ft_put_pixel(t_image *image, int x, int y, int color);
+void	ft_put_pixel(t_image *image, int x, int y, int color);
 
 //		MOVE
 

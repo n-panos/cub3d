@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_init.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nacho <nacho@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ipanos-o <ipanos-o@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:24:15 by ipanos-o          #+#    #+#             */
-/*   Updated: 2024/01/16 16:45:39 by nacho            ###   ########.fr       */
+/*   Updated: 2024/01/17 09:44:31 by ipanos-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,8 @@ t_game	*ft_init_game(t_map *map)
 	half = floor(DIST / 2);
 	game->player = ft_pos_init(map->spawn->x * DIST + half, \
 	map->spawn->y * DIST + half);
-	game->ray = ft_init_ray(map->spawn, map->spawn_orient);
-	game->time = 0;
-	game->old_time = 0;
+	game->ray = ft_init_ray(game->player, map->spawn_orient);
+	game->ray->map = ft_pos_init(map->spawn->x, map->spawn->y);
 	return (game);
 }
 
@@ -38,17 +37,38 @@ t_ray	*ft_init_ray(t_pos *player, char c)
 	t_ray	*ray;
 
 	ray = malloc(sizeof(t_ray));
+	ray->posX = player->x;
+	ray->posY = player->y;
+	ray = ft_start_dir(ray, c);
+	ray->planeX = 0;
+	ray->planeY = 0.66;
+	ray->time = 0;
+	ray->oldtime = 0;
+	return (ray);
+}
+
+t_ray	*ft_start_dir(t_ray *ray, char c)
+{
 	if (c == 'N')
-		ray->p_angle = PI * 3 / 2;
+	{
+		ray->dirX = 0;
+		ray->dirY = -1;
+	}
 	else if (c == 'S')
-		ray->p_angle = PI / 2;
+	{
+		ray->dirX = 0;
+		ray->dirY = 1;
+	}
 	else if (c == 'E')
-		ray->p_angle = 0;
+	{
+		ray->dirX = 1;
+		ray->dirY = 0;
+	}
 	else if (c == 'W')
-		ray->p_angle = PI;
-	ray->dir = ft_pos_init(cos(ray->p_angle), sin(ray->p_angle));
-	ray->map = ft_pos_init(player->x, player->y);
-	ray->plane = ft_pos_init(0, 0.66);
+	{
+		ray->dirX = -1;
+		ray->dirY = 0;
+	}
 	return (ray);
 }
 
@@ -60,6 +80,7 @@ t_image	*ft_generate_image(t_game *cubd, int width, int height)
 	image->ptr = mlx_new_image(cubd->mlx, width, height);
 	image->width = width;
 	image->height = height;
-	image->addr = mlx_get_data_addr(image->ptr, &image->bits, &image->size_line, &image->endian);
-	return image;
+	image->addr = mlx_get_data_addr(image->ptr, &image->bits, \
+	&image->size_line, &image->endian);
+	return (image);
 }

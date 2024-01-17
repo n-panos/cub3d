@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nacho <nacho@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ipanos-o <ipanos-o@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:24:03 by ipanos-o          #+#    #+#             */
-/*   Updated: 2024/01/16 15:24:38 by nacho            ###   ########.fr       */
+/*   Updated: 2024/01/17 09:15:05 by ipanos-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,6 @@ void	ft_render(t_game *cubd)
 	ft_draw_map(cubd);
 	ft_cuadriculas(cubd, 0, 0);
 	ft_draw_player(cubd, GREEN);
-	ft_draw_dir(cubd, YELLOW, len);
+	ft_draw_dir(cubd, YELLOW);
 	mlx_put_image_to_window(cubd->mlx, cubd->window, cubd->render->ptr, 0, 0);
 }
