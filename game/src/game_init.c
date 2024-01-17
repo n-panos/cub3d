@@ -6,7 +6,7 @@
 /*   By: ipanos-o <ipanos-o@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:24:15 by ipanos-o          #+#    #+#             */
-/*   Updated: 2024/01/17 09:44:31 by ipanos-o         ###   ########.fr       */
+/*   Updated: 2024/01/17 10:58:00 by ipanos-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ t_ray	*ft_init_ray(t_pos *player, char c)
 	ray->planeY = 0.66;
 	ray->time = 0;
 	ray->oldtime = 0;
+	ray->step = ft_pos_init(0, 0);
+	ray->hit = 0;
 	return (ray);
 }
 

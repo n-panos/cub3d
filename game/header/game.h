@@ -6,7 +6,7 @@
 /*   By: ipanos-o <ipanos-o@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:28:30 by ipanos-o          #+#    #+#             */
-/*   Updated: 2024/01/17 10:16:13 by ipanos-o         ###   ########.fr       */
+/*   Updated: 2024/01/17 13:05:48 by ipanos-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,13 @@ typedef struct s_ray
 	double	deltaDistX;
 	double	deltaDistY;
 	double	perpWallDist;
+	t_pos	*step;
+	int		hit;
+	int		side;
+	int		lineHeight;
+	int		drawStart;
+	int		drawEnd;
+	int		color;
 }			t_ray;
 
 typedef struct s_game
@@ -55,12 +62,12 @@ typedef struct s_game
 int		ft_game(t_map *map);
 int		ft_keys(int key_code, t_game *cubd);
 void	ft_render(t_game *cubd);
-int		ft_get_ray_len(t_game *cubd);
 
 //		INIT
 
 t_game	*ft_init_game(t_map *map);
 t_ray	*ft_init_ray(t_pos *player, char c);
+t_ray	*ft_start_dir(t_ray *ray, char c);
 t_image	*ft_generate_image(t_game *cubd, int width, int height);
 
 //		END
@@ -81,6 +88,9 @@ void	ft_cuadriculas(t_game *cubd, int x_init, int y_init);
 
 void	ft_draw_rect(t_game *cubd, t_pos start, t_pos end, int color);
 void	ft_draw_dir(t_game *cubd, int color);
+void	ft_draw(t_game *cubd, t_ray *ray);
+void	ft_draw_calculos(t_game *cubd, t_ray *ray, double rayDirX, double rayDirY);
+void	ft_draw_vertical(t_game *cubd, int drawStart, int drawEnd, int x);
 void	ft_put_pixel(t_image *image, int x, int y, int color);
 
 //		MOVE
