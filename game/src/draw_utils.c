@@ -6,7 +6,7 @@
 /*   By: ipanos-o <ipanos-o@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:25:21 by ipanos-o          #+#    #+#             */
-/*   Updated: 2024/01/17 13:05:04 by ipanos-o         ###   ########.fr       */
+/*   Updated: 2024/01/18 12:57:37 by ipanos-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,14 @@ void	ft_draw(t_game *cubd, t_ray *ray)
 		cameraX = 2 * x / WIDTH - 1;
 		rayDirX = ray->dirX + ray->planeX * cameraX;
 		rayDirY = ray->dirY + ray->planeY * cameraX;
-		ft_draw_calculos(cubd, ray, rayDirX, rayDirY);
+		ft_calculos(cubd, ray, rayDirX, rayDirY);
 		ft_draw_vertical(cubd, ray->drawStart, ray->drawEnd, x);
 		++x;
 	}
 }
 
-void	ft_draw_calculos(t_game *cubd, t_ray *ray, double rayDirX, double rayDirY)
+void	ft_calculos(t_game *cubd, t_ray *ray, \
+		double rayDirX, double rayDirY)
 {
 	if (rayDirX == 0)
 		rayDirX = MAXFLOAT;
@@ -119,7 +120,6 @@ void	ft_put_pixel(t_image *image, int x, int y, int color)
 {
 	((int *)image->addr)[(x) + (y * image->size_line / 4)] = color;
 }
-
 
 void	ft_draw_dir(t_game *cubd, int color, int len)
 {

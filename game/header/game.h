@@ -6,7 +6,7 @@
 /*   By: ipanos-o <ipanos-o@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:28:30 by ipanos-o          #+#    #+#             */
-/*   Updated: 2024/01/17 13:05:48 by ipanos-o         ###   ########.fr       */
+/*   Updated: 2024/01/18 13:02:44 by ipanos-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,10 @@ void	ft_cuadriculas(t_game *cubd, int x_init, int y_init);
 //	UTILS
 
 void	ft_draw_rect(t_game *cubd, t_pos start, t_pos end, int color);
-void	ft_draw_dir(t_game *cubd, int color);
+void	ft_draw_dir(t_game *cubd, int color, int len);
 void	ft_draw(t_game *cubd, t_ray *ray);
-void	ft_draw_calculos(t_game *cubd, t_ray *ray, double rayDirX, double rayDirY);
+void	ft_calculos(t_game *cubd, t_ray *ray, \
+		double rayDirX, double rayDirY);
 void	ft_draw_vertical(t_game *cubd, int drawStart, int drawEnd, int x);
 void	ft_put_pixel(t_image *image, int x, int y, int color);
 
