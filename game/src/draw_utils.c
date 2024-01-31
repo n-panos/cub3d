@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ipanos-o <ipanos-o@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nacho <nacho@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:25:21 by ipanos-o          #+#    #+#             */
-/*   Updated: 2024/01/31 13:26:06 by ipanos-o         ###   ########.fr       */
+/*   Updated: 2024/02/01 00:39:25 by nacho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,36 +15,35 @@
 void	ft_draw(t_game *cubd, t_ray *ray)
 {
 	int		x;
-	double	cameraX;
-	double	rayDirX;
-	double	rayDirY;
 
 	x = 0;
 	while (x < WIDTH)
 	{
-		cameraX = 2 * x / WIDTH - 1;
-		rayDirX = ray->dirX + ray->planeX * cameraX;
-		rayDirY = ray->dirY + ray->planeY * cameraX;
-		ft_calculos(cubd, ray, rayDirX, rayDirY);
-		ft_draw_vertical(cubd, ray->drawStart, ray->drawEnd, x);
+		ray->posX = (int)cubd->player->x;
+		ray->posY = (int)cubd->player->y;
+		ray->hit = 0;
+		ray->cameraX = 2 * x / WIDTH - 1;
+		ray->rayDirX = ray->dirX + ray->planeX * ray->cameraX;
+		ray->rayDirY = ray->dirY + ray->planeY * ray->cameraX;
+		ft_calculos(cubd, ray);
+		ft_draw_vertical(cubd, x);
 		++x;
 	}
 }
 
-void	ft_calculos(t_game *cubd, t_ray *ray, \
-		double rayDirX, double rayDirY)
+void	ft_calculos(t_game *cubd, t_ray *ray)
 {
-	int	i;
+	t_image	*texture;
 
-	if (rayDirX == 0)
+	if (ray->rayDirX == 0)
 		ray->deltaDistX = MAXFLOAT;
 	else
-		ray->deltaDistX = fabs(1 / rayDirX);
-	if (rayDirY == 0)
+		ray->deltaDistX = fabs(1 / ray->rayDirX);
+	if (ray->rayDirY == 0)
 		ray->deltaDistY = MAXFLOAT;
 	else
-		ray->deltaDistY = fabs(1 / rayDirY);
-	if (rayDirX < 0)
+		ray->deltaDistY = fabs(1 / ray->rayDirY);
+	if (ray->rayDirX < 0)
 	{
 		ray->step->x = -1;
 		ray->sideDistX = (ray->posX - ray->map->x) * ray->deltaDistX;
@@ -52,9 +51,9 @@ void	ft_calculos(t_game *cubd, t_ray *ray, \
 	else
 	{
 		ray->step->x = 1;
-		ray->sideDistX = (ray->map->x + 1 - ray->posX) * ray->deltaDistX;
+		ray->sideDistX = (ray->map->x + 1.0 - ray->posX) * ray->deltaDistX;
 	}
-	if (rayDirY < 0)
+	if (ray->rayDirY < 0)
 	{
 		ray->step->y = -1;
 		ray->sideDistY = (ray->posY - ray->map->y) * ray->deltaDistY;
@@ -62,7 +61,7 @@ void	ft_calculos(t_game *cubd, t_ray *ray, \
 	else
 	{
 		ray->step->y = 1;
-		ray->sideDistY = (ray->map->y + 1 - ray->posY) * ray->deltaDistY;
+		ray->sideDistY = (ray->map->y + 1.0 - ray->posY) * ray->deltaDistY;
 	}
 	//DDA
 	while (ray->hit == 0)
@@ -79,12 +78,13 @@ void	ft_calculos(t_game *cubd, t_ray *ray, \
 			ray->map->y += ray->step->y;
 			ray->side = 1;
 		}
+		ray->texpath = ft_select_texture(ray);
 		if (cubd->map->map[ray->map->y][ray->map->x] == '1')
 			ray->hit = 1;
 	}
 	//euclidean distance calculus
 	if (ray->side == 0)
-		ray->perpWallDist = (ray->sideDistX - ray->deltaDistX);
+		ray->perpWallDist = ray->sideDistX - ray->deltaDistX;
 	else
 		ray->perpWallDist = (ray->sideDistY - ray->deltaDistY);
 	//calculate wall height
@@ -96,59 +96,67 @@ void	ft_calculos(t_game *cubd, t_ray *ray, \
 	if (ray->drawEnd >= HEIGHT)
 		ray->drawEnd = HEIGHT - 1;
 	//texturing calc
-	ray->texNum = cubd->map->map[ray->map->y][ray->map->x] - 1;
 	if (ray->side == 0)
-		ray->wallX = ray->posY + ray->perpWallDist * ray->dirY;
+		ray->wallX = ray->posY + ray->perpWallDist * ray->rayDirY;
 	else
-		ray->wallX = ray->posX + ray->perpWallDist * ray->dirX;
+		ray->wallX = ray->posX + ray->perpWallDist * ray->rayDirX;
 	ray->wallX -= floor(ray->wallX);
-	ray->texX = ray->wallX * ray->texwidth;
-	if (ray->side == 0 && ray->dirX > 0)
-		ray->texX = ray->texwidth - ray->texX - 1;
-	if (ray->side == 1 && ray->dirY < 0)
-		ray->texX = ray->texwidth - ray->texX - 1;
+	texture = ft_get_texture(cubd);
+	ray->texX = (int)(ray->wallX * (double)texture->width);
+	if (ray->side == 0 && ray->rayDirX > 0)
+		ray->texX = texture->width - ray->texX - 1;
+	if (ray->side == 1 && ray->rayDirY < 0)
+		ray->texX = texture->width - ray->texX - 1;
 	//height of texture
-	ray->steps = 1.0 * ray->texwidth / ray->lineHeight;
+	ray->steps = 1.0 * texture->height / ray->lineHeight;
 	ray->texPos = (ray->drawStart - HEIGHT / 2 + ray->lineHeight / 2) * ray->steps;
-	i = ray->drawStart;
-	while (i < ray->drawEnd)
-	{
-		ray->texY = (int)ray->texPos & (ray->texwidth - 1);
-		ray->texPos += ray->steps;
-		++i;
-	}
 }
 
-void	ft_draw_vertical(t_game *cubd, int drawStart, int drawEnd, int x)
+void	ft_draw_vertical(t_game *cubd, int x)
 {
 	int	y;
 
-	y = HEIGHT;
-	while (y > 0)
+	y = 0;
+	while (y < cubd->ray->drawStart)
 	{
-		//cubd->ray->color = cubd->ray->texture->addr[(cubd->ray->texX) + (cubd->ray->texY * cubd->render->size_line / 4)];
-		if (y < drawStart)
-			ft_put_pixel(cubd->render, x, y, YELLOW);
-		//if (y == drawStart || y == drawEnd)
-		//	ft_put_pixel(cubd->render, x, y, BLACK);
-		if (y > drawStart && y < drawEnd)
-			ft_put_pixel(cubd->render, x, y, cubd->ray->color);
-		--y;
+		ft_put_pixel(cubd->render, x, y, CYAN);
+		++y;
+	}
+	while (y <= cubd->ray->drawEnd)
+	{
+		cubd->ray->curr_col = x;
+		cubd->ray->curr_row = y;
+		ft_put_wall(cubd);
+		++y;
+	}
+	while (y < HEIGHT)
+	{
+		ft_put_pixel(cubd->render, x, y, YELLOW);
+		++y;
 	}
 }
 
-t_image	*ft_png_to_image(t_game *cubd)
+void	ft_put_wall(t_game *cubd)
 {
-	char	*dir;
+	int		color;
 	t_image	*texture;
 
-	dir = cubd->map->north_path;
+	texture = ft_get_texture(cubd);
+	cubd->ray->texY = (int)(cubd->ray->texPos) & (texture->height - 1);
+	cubd->ray->texPos += cubd->ray->steps;
+	color = texture->addr[texture->height * cubd->ray->texY + cubd->ray->texX];
+	ft_put_pixel(cubd->render, cubd->ray->curr_col, cubd->ray->curr_row, color);
+}
+
+t_image	*ft_png_to_image(t_game *cubd, char *dir)
+{
+	t_image	*texture;
+
 	texture = malloc(sizeof(t_image));
-	texture->ptr = mlx_new_image(cubd->mlx, cubd->ray->texwidth, cubd->ray->texheight);
+	texture->ptr = mlx_xpm_file_to_image(cubd->mlx, dir, \
+	&texture->width, &texture->height);
 	texture->addr = (int *)mlx_get_data_addr(texture->ptr, &texture->bits, \
 	&texture->size_line, &texture->endian);
-	texture->ptr = mlx_xpm_file_to_image(cubd->mlx, dir, \
-	&cubd->ray->texwidth, &cubd->ray->texheight);
 	return (texture);
 }
 
@@ -192,4 +200,35 @@ void	ft_draw_rect(t_game *cubd, t_pos start, t_pos end, int color)
 		}
 		++x;
 	}
+}
+
+char	ft_select_texture(t_ray *ray)
+{
+	char	tex;
+	
+	if (ray->rayDirX < 0 && ray->side == 0)
+		tex = 'W';
+	else if (ray->rayDirX > 0 && ray->side == 0)
+		tex = 'E';
+	else if (ray->rayDirY < 0 && ray->side == 1)
+		tex = 'N';
+	else
+		tex = 'S';
+	return (tex);
+}
+
+t_image	*ft_get_texture(t_game *cubed)
+{
+	t_image	*texture;
+
+	texture = NULL;
+	if (cubed->ray->texpath == 'N')
+		texture = cubed->n;
+	else if (cubed->ray->texpath == 'S')
+		texture = cubed->s;
+	else if (cubed->ray->texpath == 'E')
+		texture = cubed->e;
+	else if (cubed->ray->texpath == 'W')
+		texture = cubed->w;
+	return (texture);
 }

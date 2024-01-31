@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ipanos-o <ipanos-o@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nacho <nacho@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:28:30 by ipanos-o          #+#    #+#             */
-/*   Updated: 2024/01/31 12:38:36 by ipanos-o         ###   ########.fr       */
+/*   Updated: 2024/02/01 00:33:21 by nacho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,16 @@ typedef struct s_image
 
 typedef struct s_ray
 {
+	char	texpath;
+	double	cameraX;
+	double	rayDirX;
+	double	rayDirY;
 	double	posX;
 	double	posY;
 	double	dirX;
 	double	dirY;
 	double	planeX;
 	double	planeY;
-	int		texwidth;
-	int		texheight;
 	double	time;
 	double	oldtime;
 	t_pos	*map;
@@ -48,14 +50,14 @@ typedef struct s_ray
 	int		lineHeight;
 	int		drawStart;
 	int		drawEnd;
-	int		texNum;
 	double	wallX;
 	int		texX;
 	int		texY;
 	double	steps;
 	double	texPos;
 	int		color;
-	t_image	*texture;
+	int		curr_col;
+	int		curr_row;
 }			t_ray;
 
 typedef struct s_game
@@ -64,6 +66,10 @@ typedef struct s_game
 	void	*mlx;
 	void	*window;
 	t_image	*render;
+	t_image	*n;
+	t_image	*s;
+	t_image	*w;
+	t_image	*e;
 	t_pos	*player;
 	t_ray	*ray;
 }			t_game;
@@ -75,7 +81,7 @@ void	ft_render(t_game *cubd);
 //		INIT
 
 t_game	*ft_init_game(t_map *map);
-t_ray	*ft_init_ray(t_pos *player, char c);
+t_ray	*ft_init_ray(char c);
 t_ray	*ft_start_dir(t_ray *ray, char c);
 t_image	*ft_generate_image(t_game *cubd, int width, int height);
 
@@ -98,11 +104,13 @@ void	ft_cuadriculas(t_game *cubd, int x_init, int y_init);
 void	ft_draw_rect(t_game *cubd, t_pos start, t_pos end, int color);
 void	ft_draw_dir(t_game *cubd, int color, int len);
 void	ft_draw(t_game *cubd, t_ray *ray);
-void	ft_calculos(t_game *cubd, t_ray *ray, \
-		double rayDirX, double rayDirY);
-void	ft_draw_vertical(t_game *cubd, int drawStart, int drawEnd, int x);
-t_image	*ft_png_to_image(t_game *cubd);
+void	ft_calculos(t_game *cubd, t_ray *ray);
+void	ft_draw_vertical(t_game *cubd, int x);
+t_image	*ft_png_to_image(t_game *cubd, char *dir);
+void	ft_put_wall(t_game *cubd);
 void	ft_put_pixel(t_image *image, int x, int y, int color);
+char	ft_select_texture(t_ray *ray);
+t_image	*ft_get_texture(t_game *cubed);
 
 //		MOVE
 

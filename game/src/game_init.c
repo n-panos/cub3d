@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_init.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ipanos-o <ipanos-o@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nacho <nacho@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:24:15 by ipanos-o          #+#    #+#             */
-/*   Updated: 2024/01/31 12:39:22 by ipanos-o         ###   ########.fr       */
+/*   Updated: 2024/02/01 00:33:27 by nacho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 t_game	*ft_init_game(t_map *map)
 {
 	t_game	*game;
-	int		half;
 
 	game = malloc(sizeof(t_game));
 	if (!game)
@@ -24,26 +23,25 @@ t_game	*ft_init_game(t_map *map)
 	game->window = mlx_new_window(game->mlx, WIDTH, HEIGHT, "Cub3D");
 	game->map = map;
 	game->render = ft_generate_image(game, WIDTH, HEIGHT);
-	half = floor(DIST / 2);
-	game->player = ft_pos_init(map->spawn->x * DIST + half, \
-	map->spawn->y * DIST + half);
-	game->ray = ft_init_ray(game->player, map->spawn_orient);
+	game->player = ft_pos_init(map->spawn->x + 0.5, \
+	map->spawn->y + 0.5);
+	game->ray = ft_init_ray(map->spawn_orient);
 	game->ray->map = ft_pos_init(map->spawn->x, map->spawn->y);
+	game->n = ft_png_to_image(game, game->map->north_path);
+	game->s = ft_png_to_image(game, game->map->south_path);
+	game->e = ft_png_to_image(game, game->map->east_path);
+	game->w = ft_png_to_image(game, game->map->west_path);
 	return (game);
 }
 
-t_ray	*ft_init_ray(t_pos *player, char c)
+t_ray	*ft_init_ray(char c)
 {
 	t_ray	*ray;
 
 	ray = malloc(sizeof(t_ray));
-	ray->posX = player->x;
-	ray->posY = player->y;
 	ray = ft_start_dir(ray, c);
 	ray->planeX = 0;
 	ray->planeY = 0.66;
-	ray->texwidth = 64;
-	ray->texheight = 64;
 	ray->time = 0;
 	ray->oldtime = 0;
 	ray->step = ft_pos_init(0, 0);
