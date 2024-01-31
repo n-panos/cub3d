@@ -6,7 +6,7 @@
 /*   By: ipanos-o <ipanos-o@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:28:20 by ipanos-o          #+#    #+#             */
-/*   Updated: 2024/01/17 12:03:34 by ipanos-o         ###   ########.fr       */
+/*   Updated: 2024/01/31 11:45:25 by ipanos-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,6 @@
 
 # define WIDTH 1920
 # define HEIGHT 1080
-# define MAP_W 1360
-# define MAP_H 780
 
 # define DIST 32
 # define SPEED 1

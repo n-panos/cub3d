@@ -6,7 +6,7 @@
 /*   By: ipanos-o <ipanos-o@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:28:30 by ipanos-o          #+#    #+#             */
-/*   Updated: 2024/01/18 13:02:44 by ipanos-o         ###   ########.fr       */
+/*   Updated: 2024/01/31 12:38:36 by ipanos-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 typedef struct s_image
 {
 	void	*ptr;
-	char	*addr;
+	int		*addr;
 	int		width;
 	int		height;
 	int		bits;
@@ -32,6 +32,8 @@ typedef struct s_ray
 	double	dirY;
 	double	planeX;
 	double	planeY;
+	int		texwidth;
+	int		texheight;
 	double	time;
 	double	oldtime;
 	t_pos	*map;
@@ -46,7 +48,14 @@ typedef struct s_ray
 	int		lineHeight;
 	int		drawStart;
 	int		drawEnd;
+	int		texNum;
+	double	wallX;
+	int		texX;
+	int		texY;
+	double	steps;
+	double	texPos;
 	int		color;
+	t_image	*texture;
 }			t_ray;
 
 typedef struct s_game
@@ -92,6 +101,7 @@ void	ft_draw(t_game *cubd, t_ray *ray);
 void	ft_calculos(t_game *cubd, t_ray *ray, \
 		double rayDirX, double rayDirY);
 void	ft_draw_vertical(t_game *cubd, int drawStart, int drawEnd, int x);
+t_image	*ft_png_to_image(t_game *cubd);
 void	ft_put_pixel(t_image *image, int x, int y, int color);
 
 //		MOVE

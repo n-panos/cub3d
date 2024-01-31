@@ -6,7 +6,7 @@
 /*   By: ipanos-o <ipanos-o@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:24:21 by ipanos-o          #+#    #+#             */
-/*   Updated: 2024/01/17 09:14:20 by ipanos-o         ###   ########.fr       */
+/*   Updated: 2024/01/25 13:18:55 by ipanos-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_minimap(t_game *cubd)
 {
 	ft_draw_map(cubd);
 	ft_draw_player(cubd, GREEN);
-	ft_draw_dir(cubd, YELLOW);
+	ft_draw_dir(cubd, YELLOW, 200);
 	ft_cuadriculas(cubd, 0, 0);
 	mlx_put_image_to_window(cubd->mlx, cubd->window, cubd->render->ptr, 0, 0);
 }

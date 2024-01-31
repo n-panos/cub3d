@@ -6,7 +6,7 @@
 /*   By: ipanos-o <ipanos-o@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:24:03 by ipanos-o          #+#    #+#             */
-/*   Updated: 2024/01/17 13:08:12 by ipanos-o         ###   ########.fr       */
+/*   Updated: 2024/01/31 12:57:18 by ipanos-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int	ft_keys(int key_code, t_game *game)
 
 void	ft_render(t_game *cubd)
 {
+	cubd->ray->texture = ft_png_to_image(cubd);
 	ft_draw(cubd, cubd->ray);
 	mlx_put_image_to_window(cubd->mlx, cubd->window, cubd->render->ptr, 0, 0);
 }

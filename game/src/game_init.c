@@ -6,7 +6,7 @@
 /*   By: ipanos-o <ipanos-o@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:24:15 by ipanos-o          #+#    #+#             */
-/*   Updated: 2024/01/17 10:58:00 by ipanos-o         ###   ########.fr       */
+/*   Updated: 2024/01/31 12:39:22 by ipanos-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ t_ray	*ft_init_ray(t_pos *player, char c)
 	ray = ft_start_dir(ray, c);
 	ray->planeX = 0;
 	ray->planeY = 0.66;
+	ray->texwidth = 64;
+	ray->texheight = 64;
 	ray->time = 0;
 	ray->oldtime = 0;
 	ray->step = ft_pos_init(0, 0);
@@ -82,7 +84,7 @@ t_image	*ft_generate_image(t_game *cubd, int width, int height)
 	image->ptr = mlx_new_image(cubd->mlx, width, height);
 	image->width = width;
 	image->height = height;
-	image->addr = mlx_get_data_addr(image->ptr, &image->bits, \
+	image->addr = (int *)mlx_get_data_addr(image->ptr, &image->bits, \
 	&image->size_line, &image->endian);
 	return (image);
 }
