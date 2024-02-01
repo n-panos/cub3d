@@ -1,8 +1,8 @@
-NO ./grass_floor.xpm
-SO ./grass_floor.xpm
+NO ./walls/north_wall.xpm
+SO ./walls/south_wall.xpm
 
-WE ./grass_floor.xpm
-EA ./grass_floor.xpm
+WE ./walls/west_wall.xpm
+EA ./walls/east_wall.xpm
  
 F 220,100,0
 C 225,30,0

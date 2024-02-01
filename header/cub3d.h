@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nacho <nacho@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ipanos-o <ipanos-o@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:28:20 by ipanos-o          #+#    #+#             */
-/*   Updated: 2024/02/01 00:17:10 by nacho            ###   ########.fr       */
+/*   Updated: 2024/02/01 12:08:44 by ipanos-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@
 # define HEIGHT 1080
 
 # define DIST 10
-# define SPEED 1
+# define SPEED 0.5
 # define TURN 0.1
 # define PI 3.1415926535
 

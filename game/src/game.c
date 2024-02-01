@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nacho <nacho@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ipanos-o <ipanos-o@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:24:03 by ipanos-o          #+#    #+#             */
-/*   Updated: 2024/01/31 23:28:14 by nacho            ###   ########.fr       */
+/*   Updated: 2024/02/01 12:32:43 by ipanos-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@ int	ft_keys(int key_code, t_game *game)
 		ft_move(game, UP);
 	else if (key_code == S || key_code == DOWN)
 		ft_move(game, DOWN);
-	else if (key_code == A || key_code == LEFT)
-		ft_move(game, LEFT);
-	else if (key_code == D || key_code == RIGHT)
-		ft_move(game, RIGHT);
+	//else if (key_code == A || key_code == LEFT)
+		//ft_turn(game, LEFT);
+	//else if (key_code == D || key_code == RIGHT)
+	//	ft_turn(game, RIGHT);
 	ft_render(game);
 	return (0);
 }
