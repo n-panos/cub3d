@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nacho <nacho@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ipanos-o <ipanos-o@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:25:21 by ipanos-o          #+#    #+#             */
-/*   Updated: 2024/02/01 00:39:25 by nacho            ###   ########.fr       */
+/*   Updated: 2024/02/01 10:01:28 by ipanos-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,10 @@ void	ft_draw(t_game *cubd, t_ray *ray)
 void	ft_calculos(t_game *cubd, t_ray *ray)
 {
 	t_image	*texture;
+
+	t_pos pos;
+
+	pos = *ray->map;
 
 	if (ray->rayDirX == 0)
 		ray->deltaDistX = MAXFLOAT;
@@ -69,17 +73,17 @@ void	ft_calculos(t_game *cubd, t_ray *ray)
 		if (ray->sideDistX < ray->sideDistY)
 		{
 			ray->sideDistX += ray->deltaDistX;
-			ray->map->x += ray->step->x;
+			pos.x += ray->step->x;
 			ray->side = 0;
 		}
 		else
 		{
 			ray->sideDistY += ray->deltaDistY;
-			ray->map->y += ray->step->y;
+			pos.y += ray->step->y;
 			ray->side = 1;
 		}
 		ray->texpath = ft_select_texture(ray);
-		if (cubd->map->map[ray->map->y][ray->map->x] == '1')
+		if (cubd->map->map[pos.y][pos.x] == '1')
 			ray->hit = 1;
 	}
 	//euclidean distance calculus

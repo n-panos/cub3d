@@ -6,11 +6,12 @@
 /*   By: ipanos-o <ipanos-o@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 11:07:04 by ipanos-o          #+#    #+#             */
-/*   Updated: 2024/01/31 13:19:47 by ipanos-o         ###   ########.fr       */
+/*   Updated: 2024/02/01 09:44:04 by ipanos-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+void	ft_mtx_print(char **mtx);
 
 void	leaks(void)
 {
@@ -26,6 +27,7 @@ int	main(int argc, char **argv)
 		return (ft_putstr_fd("argc diferente de 2", 2), 0);
 	map = ft_init_map();
 	ft_parse(map, argv[1]);
+	ft_mtx_print(map->map);
 	ft_game(map);
 	return (0);
 }
