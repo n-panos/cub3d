@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   valid_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ipanos-o <ipanos-o@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nacho <nacho@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:29:37 by ipanos-o          #+#    #+#             */
-/*   Updated: 2024/01/09 13:10:50 by ipanos-o         ###   ########.fr       */
+/*   Updated: 2024/02/07 16:41:52 by nacho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	ft_valid_chars(t_map *map)
 					ft_map_error(map, "Map error, spawn duplicated");
 				map->spawn_orient = c;
 				map->map[i][j] = 'p';
-				map->spawn = ft_pos_init(j, i);
+				map->spawn = ft_posint_init(j, i);
 			}
 			else if (c != '0' && c != '1' && c != ' ')
 				ft_map_error(map, "Map error, invalid character");

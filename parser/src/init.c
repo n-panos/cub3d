@@ -6,7 +6,7 @@
 /*   By: nacho <nacho@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 11:20:27 by ipanos-o          #+#    #+#             */
-/*   Updated: 2023/12/29 13:19:18 by nacho            ###   ########.fr       */
+/*   Updated: 2024/02/07 16:32:33 by nacho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_map	*ft_init_map(void)
 	if (!map)
 		ft_exit_err("Error allocating map");
 	map->map = NULL;
-	map->spawn = ft_pos_init(0, 0);
+	map->spawn = ft_posint_init(0, 0);
 	map->spawn_orient = '0';
 	map->error_ret = NULL;
 	map->north_path = NULL;
@@ -32,11 +32,11 @@ t_map	*ft_init_map(void)
 	return (map);
 }
 
-t_pos	*ft_pos_init(int x, int y)
+t_pos_int	*ft_posint_init(int x, int y)
 {
-	t_pos	*new_pos;
+	t_pos_int	*new_pos;
 
-	new_pos = malloc(sizeof(t_pos *));
+	new_pos = malloc(sizeof(t_pos_int *));
 	if (ft_give_coords(new_pos, x, y) == 1)
 		return (NULL);
 	return (new_pos);

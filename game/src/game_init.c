@@ -6,7 +6,7 @@
 /*   By: nacho <nacho@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:24:15 by ipanos-o          #+#    #+#             */
-/*   Updated: 2024/02/01 00:33:27 by nacho            ###   ########.fr       */
+/*   Updated: 2024/02/08 13:28:41 by nacho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,55 +23,17 @@ t_game	*ft_init_game(t_map *map)
 	game->window = mlx_new_window(game->mlx, WIDTH, HEIGHT, "Cub3D");
 	game->map = map;
 	game->render = ft_generate_image(game, WIDTH, HEIGHT);
-	game->player = ft_pos_init(map->spawn->x + 0.5, \
-	map->spawn->y + 0.5);
-	game->ray = ft_init_ray(map->spawn_orient);
-	game->ray->map = ft_pos_init(map->spawn->x, map->spawn->y);
-	game->n = ft_png_to_image(game, game->map->north_path);
-	game->s = ft_png_to_image(game, game->map->south_path);
-	game->e = ft_png_to_image(game, game->map->east_path);
-	game->w = ft_png_to_image(game, game->map->west_path);
+	game->textures = malloc(sizeof(t_text));
+	game->textures->n = ft_png_to_image(game, game->map->north_path);
+	game->textures->s = ft_png_to_image(game, game->map->south_path);
+	game->textures->e = ft_png_to_image(game, game->map->east_path);
+	game->textures->w = ft_png_to_image(game, game->map->west_path);
+	game->player = malloc (sizeof(t_play));
+	game->player->move_speed = 0.5;
+	game->player->turn_speed = 0.3;
+	game->player->pos.x = game->map->spawn->x;
+	game->player->pos.y = game->map->spawn->y;
 	return (game);
-}
-
-t_ray	*ft_init_ray(char c)
-{
-	t_ray	*ray;
-
-	ray = malloc(sizeof(t_ray));
-	ray = ft_start_dir(ray, c);
-	ray->planeX = 0;
-	ray->planeY = 0.66;
-	ray->time = 0;
-	ray->oldtime = 0;
-	ray->step = ft_pos_init(0, 0);
-	ray->hit = 0;
-	return (ray);
-}
-
-t_ray	*ft_start_dir(t_ray *ray, char c)
-{
-	if (c == 'N')
-	{
-		ray->dirX = 0;
-		ray->dirY = -1;
-	}
-	else if (c == 'S')
-	{
-		ray->dirX = 0;
-		ray->dirY = 1;
-	}
-	else if (c == 'E')
-	{
-		ray->dirX = 1;
-		ray->dirY = 0;
-	}
-	else if (c == 'W')
-	{
-		ray->dirX = -1;
-		ray->dirY = 0;
-	}
-	return (ray);
 }
 
 t_image	*ft_generate_image(t_game *cubd, int width, int height)
@@ -85,4 +47,16 @@ t_image	*ft_generate_image(t_game *cubd, int width, int height)
 	image->addr = (int *)mlx_get_data_addr(image->ptr, &image->bits, \
 	&image->size_line, &image->endian);
 	return (image);
+}
+
+t_image	*ft_png_to_image(t_game *cubd, char *dir)
+{
+	t_image	*texture;
+
+	texture = malloc(sizeof(t_image));
+	texture->ptr = mlx_xpm_file_to_image(cubd->mlx, dir, \
+	&texture->width, &texture->height);
+	texture->addr = (int *)mlx_get_data_addr(texture->ptr, &texture->bits, \
+	&texture->size_line, &texture->endian);
+	return (texture);
 }

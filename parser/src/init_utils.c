@@ -6,13 +6,13 @@
 /*   By: nacho <nacho@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 11:39:42 by ipanos-o          #+#    #+#             */
-/*   Updated: 2023/12/29 14:09:40 by nacho            ###   ########.fr       */
+/*   Updated: 2024/02/07 16:34:52 by nacho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	ft_give_coords(t_pos *vector, int x, int y)
+int	ft_give_coords(t_pos_int *vector, int x, int y)
 {
 	if (!vector)
 		return (1);

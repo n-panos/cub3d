@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ipanos-o <ipanos-o@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nacho <nacho@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:24:03 by ipanos-o          #+#    #+#             */
-/*   Updated: 2024/02/01 12:32:43 by ipanos-o         ###   ########.fr       */
+/*   Updated: 2024/02/07 15:53:07 by nacho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,20 +29,24 @@ int	ft_keys(int key_code, t_game *game)
 {
 	if (key_code == ESC)
 		ft_end_game(game);
-	else if (key_code == W || key_code == UP)
-		ft_move(game, UP);
-	else if (key_code == S || key_code == DOWN)
-		ft_move(game, DOWN);
-	//else if (key_code == A || key_code == LEFT)
-		//ft_turn(game, LEFT);
-	//else if (key_code == D || key_code == RIGHT)
-	//	ft_turn(game, RIGHT);
+	else if (key_code == W)
+		ft_move_up(game->player, game->map->map);
+	else if (key_code == S)
+		ft_move_down(game->player, game->map->map);
+	else if (key_code == A)
+		ft_move_left(game->player, game->map->map);
+	else if (key_code == D)
+		ft_move_right(game->player, game->map->map);
+	else if (key_code == LEFT)
+		ft_turn_left(game, game->player->turn_speed);
+	else if (key_code == RIGHT)
+		ft_turn_right(game, game->player->turn_speed);
 	ft_render(game);
 	return (0);
 }
 
 void	ft_render(t_game *cubd)
 {
-	ft_draw(cubd, cubd->ray);
+	ft_raycasting(cubd);
 	mlx_put_image_to_window(cubd->mlx, cubd->window, cubd->render->ptr, 0, 0);
 }

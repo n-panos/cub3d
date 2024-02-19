@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ipanos-o <ipanos-o@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nacho <nacho@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:28:30 by ipanos-o          #+#    #+#             */
-/*   Updated: 2024/02/01 12:28:01 by ipanos-o         ###   ########.fr       */
+/*   Updated: 2024/02/08 12:59:02 by nacho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,41 +24,55 @@ typedef struct s_image
 	int		endian;
 }			t_image;
 
+typedef struct s_play
+{
+	t_pos	pos;
+	t_pos	dir;
+	t_pos	x_dir;
+	t_pos	plane;
+	t_image	image;
+	double	turn_speed;
+	double	move_speed;
+}			t_play;
+
+typedef struct s_line
+{
+	int		draw_start;
+	int		draw_end;
+	int		x;
+	int		y;
+	int		y0;
+	int		y1;
+	int		tex_x;
+	int		tex_y;
+	int		line_height;
+	char	wall_tex;
+}			t_line;
+
 typedef struct s_ray
 {
-	char	texpath;
-	double	cameraX;
-	double	rayDirX;
-	double	rayDirY;
-	double	posX;
-	double	posY;
-	double	dirX;
-	double	dirY;
-	double	planeX;
-	double	planeY;
-	double	time;
-	double	oldtime;
-	t_pos	*map;
-	double	sideDistX;
-	double	sideDistY;
-	double	deltaDistX;
-	double	deltaDistY;
-	double	perpWallDist;
-	t_pos	*step;
-	int		hit;
 	int		side;
-	int		lineHeight;
-	int		drawStart;
-	int		drawEnd;
-	double	wallX;
-	int		texX;
-	int		texY;
-	double	steps;
-	double	texPos;
-	int		color;
-	int		curr_col;
-	int		curr_row;
+	int		hit;
+	double	perp_wall_dist;
+	double	camera_x;
+	int		curent_col;
+	int		current_row;
+	t_pos	ray_dir;
+	t_pos	mpos;
+	t_pos	side_dist;
+	t_pos	delta_dist;
+	t_pos	step;
+	double	wall_x;
+	t_line	*line;
 }			t_ray;
+
+typedef struct s_text
+{
+	struct s_image	*n;
+	struct s_image	*s;
+	struct s_image	*e;
+	struct s_image	*w;
+}			t_text;
 
 typedef struct s_game
 {
@@ -66,12 +80,8 @@ typedef struct s_game
 	void	*mlx;
 	void	*window;
 	t_image	*render;
-	t_image	*n;
-	t_image	*s;
-	t_image	*w;
-	t_image	*e;
-	t_pos	*player;
-	t_ray	*ray;
+	t_text	*textures;
+	t_play	*player;
 }			t_game;
 
 int		ft_game(t_map *map);
@@ -84,6 +94,7 @@ t_game	*ft_init_game(t_map *map);
 t_ray	*ft_init_ray(char c);
 t_ray	*ft_start_dir(t_ray *ray, char c);
 t_image	*ft_generate_image(t_game *cubd, int width, int height);
+t_image	*ft_png_to_image(t_game *cubd, char *dir);
 
 //		END
 
@@ -101,20 +112,42 @@ void	ft_cuadriculas(t_game *cubd, int x_init, int y_init);
 
 //	UTILS
 
-void	ft_draw_rect(t_game *cubd, t_pos start, t_pos end, int color);
-void	ft_draw_dir(t_game *cubd, int color, int len);
-void	ft_draw(t_game *cubd, t_ray *ray);
-void	ft_calculos(t_game *cubd, t_ray *ray);
-void	ft_draw_vertical(t_game *cubd, int x);
-t_image	*ft_png_to_image(t_game *cubd, char *dir);
-void	ft_put_wall(t_game *cubd);
+//		RAYCASTING
+
+void	ft_raycasting(t_game *cubd);
+void	ft_set_pos(t_play *p, t_ray *ray, int x);
+void	ft_raydir_and_dist(t_ray *ray, t_play *p, int x);
+void	ft_step(t_ray *ray, t_play *p);
+
+//		RAY - DDA
+
+char	ft_dda(t_game *cubd, t_ray *ray);
+char	ft_what_tex(t_ray *ray);
+
+//		RAY - WALLS
+
+void	ft_walldist(t_ray *ray);
+void	ft_v_line(t_line *line, t_ray *ray);
+void	ft_texture(t_game *cubd, t_line *line, t_ray *ray);
+t_image *ft_get_texture(t_line *line, t_game *cubd, t_ray *ray);
+
+void	my_img_pixel_put(t_image *image, int x, int y, int color);
 void	ft_put_pixel(t_image *image, int x, int y, int color);
-char	ft_select_texture(t_ray *ray);
-t_image	*ft_get_texture(t_game *cubed);
+
+//		RAY - PAINT
+
+void	ft_paint_pixels(t_game *cubd, t_line *line, t_ray *ray, int x);
+void	ft_wall(t_game *cubd, t_ray *ray, double *step, double *tex_pos);
 
 //		MOVE
 
 void	ft_move(t_game *cubd, int dir);
 void	ft_turn(t_game *cubd, int dir);
+void	ft_move_up(t_play *p, char **map);
+void	ft_move_down(t_play *p, char **map);
+void	ft_move_left(t_play *p, char **map);
+void	ft_move_right(t_play *p, char **map);
+void    ft_turn_left(t_game *cubd, double turn_speed);
+void    ft_turn_right(t_game *cubd, double turn_speed);
 
 #endif

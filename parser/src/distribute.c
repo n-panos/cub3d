@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   distribute.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ipanos-o <ipanos-o@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nacho <nacho@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:28:52 by ipanos-o          #+#    #+#             */
-/*   Updated: 2024/01/09 10:28:54 by ipanos-o         ###   ########.fr       */
+/*   Updated: 2024/02/08 13:15:56 by nacho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	ft_distribute_map(t_map *map, char **mtx, int i)
 	free(map->error_ret);
 	map->error_ret = NULL;
 	aux = ft_mtx_line_cnt(mtx) - i;
-	map->map = malloc(sizeof(char *) * (aux + 1));
+	map->map = (char **)malloc(sizeof(char *) * (aux + 1));
 	aux = 0;
 	while (mtx[i])
 	{

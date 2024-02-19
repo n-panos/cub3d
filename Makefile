@@ -42,7 +42,7 @@ SRC			+= $(PARSER_PATH)
 
 ##	GAME
 
-GAME		= draw_utils.c game_end.c game_init.c game.c image.c move.c
+GAME		= game_end.c game_init.c game.c image.c move.c raycast.c turn.c
 B_SRC		+= $(GAME)
 GAME_PATH	= $(addprefix game/src/, $(GAME))
 SRC			+= $(GAME_PATH)

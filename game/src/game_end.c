@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_end.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ipanos-o <ipanos-o@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nacho <nacho@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 09:12:24 by ipanos-o          #+#    #+#             */
-/*   Updated: 2024/01/17 10:34:49 by ipanos-o         ###   ########.fr       */
+/*   Updated: 2024/02/08 12:59:49 by nacho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int	ft_end_game(t_game *game)
 {
-	ft_free_ray(game->ray);
 	ft_free_image(game->render, game->mlx);
 	ft_free_map(game->map);
 	free(game->player);
@@ -40,13 +39,6 @@ void	ft_free_map(t_map *map)
 	free(map->ceiling);
 	free(map->floor);
 	free(map);
-}
-
-void	ft_free_ray(t_ray *ray)
-{
-	free(ray->map);
-	free(ray->step);
-	free(ray);
 }
 
 void	ft_free_image(t_image *image, void *mlx)

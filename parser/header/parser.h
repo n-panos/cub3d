@@ -6,17 +6,23 @@
 /*   By: nacho <nacho@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 11:07:58 by ipanos-o          #+#    #+#             */
-/*   Updated: 2024/01/16 17:53:23 by nacho            ###   ########.fr       */
+/*   Updated: 2024/02/07 16:34:56 by nacho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSER_H
 # define PARSER_H
 
-typedef struct s_pos
+typedef struct s_pos_int
 {
 	int		x;
 	int		y;
+}			t_pos_int;
+
+typedef struct s_pos
+{
+	double	x;
+	double	y;
 }			t_pos;
 
 typedef struct s_rgb
@@ -29,16 +35,16 @@ typedef struct s_rgb
 
 typedef struct s_map
 {
-	char	**map;
-	char	*error_ret;
-	char	*north_path;
-	char	*south_path;
-	char	*west_path;
-	char	*east_path;
-	t_rgb	*floor;
-	t_rgb	*ceiling;
-	char	spawn_orient;
-	t_pos	*spawn;
+	char		**map;
+	char		*error_ret;
+	char		*north_path;
+	char		*south_path;
+	char		*west_path;
+	char		*east_path;
+	t_rgb		*floor;
+	t_rgb		*ceiling;
+	char		spawn_orient;
+	t_pos_int	*spawn;
 }			t_map;
 
 int		ft_parse(t_map *map, char *argv);
@@ -70,12 +76,12 @@ int		ft_change_ps(char **map, int i, int j, int ret);
 
 //	INIT
 
-t_map	*ft_init_map(void);
-t_pos	*ft_pos_init(int x, int y);
-t_rgb	*ft_rgb(char *r, char *g, char *b);
-void	ft_map_error(t_map *map, char *str);
+t_map		*ft_init_map(void);
+t_pos_int	*ft_posint_init(int x, int y);
+t_rgb		*ft_rgb(char *r, char *g, char *b);
+void		ft_map_error(t_map *map, char *str);
 
-int		ft_give_coords(t_pos *vector, int x, int y);
+int		ft_give_coords(t_pos_int *vector, int x, int y);
 int		ft_aredigit_atoi(char *str);
 char	*ft_space(char *str);
 
